@@ -20,9 +20,9 @@ const userShema = z.object({
         invalid_type_error: 'lastName must be a string'
     }),
 
-    active: z.boolean().never().default(1),
+    active: z.boolean().optional().default(1),
 
-    email: z.email({
+    email: z.string().email({
         required_error: 'email is required',
         invalid_type_error: 'email must be a type @email'
     }),
@@ -42,12 +42,12 @@ const userShema = z.object({
     })
     .refine((data)=>data.password === data.confirmpassword, {
         message: 'password do not match',
-        path: ['newPassword']
+        path: ['confirmpassword']
     }),
     roleId: z.number().default(2)
 
     })
 
-export const validate = (object) =>{
+export const validateUser = (object) =>{
     return userShema.safeParse(object)
 }
