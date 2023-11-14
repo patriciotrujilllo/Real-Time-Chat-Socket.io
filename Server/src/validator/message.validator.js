@@ -11,6 +11,6 @@ const messagesShema = z.object({
     })
 })
 
-export const validate = (object) =>{
+export const validateMessage = (object) =>{
     return messagesShema.safeParse(object)
 }
