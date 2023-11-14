@@ -20,32 +20,29 @@ const userShema = z.object({
         invalid_type_error: 'lastName must be a string'
     }),
 
-    active: z.boolean().optional().default(1),
+    active: z.string().transform(parseInt).optional().default(1),
 
     email: z.string().email({
         required_error: 'email is required',
         invalid_type_error: 'email must be a type @email'
     }),
 
-    img: z.any().refine((files) => {
-            return files?.[0]?.size <= MAX_FILE_SIZE;
-            }, `Max image size is 5MB.`)
-            .refine(
-            (files) => ACCEPTED_IMAGE_MIME_TYPES.includes(files?.[0]?.type),
-            "Only .jpg, .jpeg, .png and .webp formats are supported."
-        ),
+    img: z.object({
+        size: z.number(),
+        type: z.string(),
+    }).refine(file => file.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+    .refine(file => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type), "Only .jpg, .jpeg, .png and .webp formats are supported."),
+
     password: z.string({
         required_error: 'password is required'
     }),
     confirmpassword: z.string({
         required_error: 'password is required'
-    })
-    .refine((data)=>data.password === data.confirmpassword, {
+    }),
+    roleId: z.string().transform(parseInt).default(2)
+    }).refine((data)=>data.password === data.confirmpassword, {
         message: 'password do not match',
         path: ['confirmpassword']
-    }),
-    roleId: z.number().default(2)
-
     })
 
 export const validateUser = (object) =>{
