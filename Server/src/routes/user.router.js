@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { pool } from '../models/DBConnection.js'
 import { validateUser} from '../validator/user.validator.js'
 import jsonwebtoken from 'jsonwebtoken'
 import crypto from 'crypto'
 import multiparty from 'connect-multiparty'
 import bcrypt from 'bcrypt'
+import { addUser } from "../models/user.model.js";
 
 
 const multipartyMiddleware = multiparty({uploadDir: 'src/uploads/users'})
@@ -19,8 +19,7 @@ userRouter.post('/',multipartyMiddleware,async(req,res)=>{
         return res.status(400).json({ error: JSON.parse(validate.error.message)})
     }
 
-    const {firstName,lastName,active,email,password,roleId} = validate.data
-    // const {firstName,lastName,active,email,password,roleId} = req.body
+    const {email,password} = validate.data
 
     const file = req.files.img
 
@@ -45,7 +44,7 @@ userRouter.post('/',multipartyMiddleware,async(req,res)=>{
     try {
         const hashed_password = await bcrypt.hash(password,10)
 
-        await pool.query('INSERT INTO users(id, firstName, lastName, active, email, password, img, roleId) VALUES(?,?,?,?,?,?,?,?)',[id,firstName,lastName,Number(active),email,hashed_password,imgPath,roleId])
+        await addUser({...validate.data,password:hashed_password,id,img:imgPath})
 
         res.status(200).json({email,token})
 
