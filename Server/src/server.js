@@ -26,14 +26,16 @@ app.get('/', async (req, res) => {
 })
 
 app.post('/user',multipartyMiddleware,async(req,res)=>{
-    // const validate = validateUser(req.body)
+    const newvalidate = {...req.body,img:req.files.img}
+    console.log(req.files.img)
+    const validate = validateUser(newvalidate)
     
-    // if(validate.error){
-    //     return res.status(400).json({ error: JSON.parse(validate.error.message)})
-    // }
+    if(validate.error){
+        return res.status(400).json({ error: JSON.parse(validate.error.message)})
+    }
 
-    // const {firstName,lastName,active,email,img,password,roleId} = validate.data
-    const {firstName,lastName,active,email,password,roleId} = req.body
+    const {firstName,lastName,active,email,password,roleId} = validate.data
+    // const {firstName,lastName,active,email,password,roleId} = req.body
 
     const file = req.files.img
 
