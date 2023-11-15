@@ -1,6 +1,8 @@
 import { validateMessage} from '../validator/message.validator.js'
 import crypto from 'crypto'
-import { addMessage,showMessagesAll,showMessagesUser } from "../models/message.model.js";
+import { MessageModel } from "../models/message.model.js";
+
+const Model = new MessageModel
 
 export const addUserMessage = async(req,res)=>{
     
@@ -16,9 +18,31 @@ export const addUserMessage = async(req,res)=>{
 
     try {
 
-        const result = await addMessage({id,content,date:nowDate,emailUser})
+        await Model.addMessage({id,content,date:nowDate,emailUser})
+        res.status(200).json({message:'add message'})
 
-        res.status(200).json(result)
+    } catch (error) {
+        return res.status(400).json({message:'error at insert',error})
+    }
+}
+export const getMessages = async(req,res)=>{
+
+    const {email} = req.query
+
+    if(email){
+        try {
+            const result = await Model.showMessagesUser({email})
+            console.log(result[0])
+            return res.status(200).json(result[0])
+        } catch (error) {
+            return res.status(400).json(error)
+        }
+    }
+    
+    try {
+
+        const result = await Model.showMessagesAll()
+        res.status(200).json(result[0])
 
     } catch (error) {
         return res.status(400).json({message:'error at insert',error})
