@@ -2,20 +2,27 @@ import { pool } from './DBConnection.js'
 
 export class MessageModel {
 
-    async addMessage ({id,content,date,emailUser}){
+    async add ({id,content,date,emailUser}){
     
         const result = await pool.query('INSERT INTO messages(id,content,date,emailUser) VALUES(?,?,?,?)',[id,content,date,emailUser])
     
         return result
     }
 
-    async showMessagesUser ({email}) {
+    async get ({email}) {
         const result = await pool.query('SELECT * FROM messages WHERE emailUser=?',[email])
         return result
     }
 
-    async showMessagesAll () {
+    async getAll () {
         const result = await pool.query('SELECT * FROM messages')
         return result
     }
+    // async update ({id,content,date,emailUser}) {
+    //     const result = await pool.query('SELECT * FROM messages')
+    //     return result
+    // }
+    // async delete () {
+            
+    // }
 }
