@@ -6,6 +6,7 @@ import { messagesRouter } from './routes/messages.router.js'
 import { Server } from 'socket.io'
 import { createServer } from 'node:http'
 import { corsConfiguration } from './utils/corsConfiguration.js'
+import cors from 'cors'
 
 config()
 
