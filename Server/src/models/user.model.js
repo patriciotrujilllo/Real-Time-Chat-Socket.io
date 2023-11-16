@@ -7,7 +7,7 @@ export class UserModel {
         
         }
         async getByEmail ({email}) {
-                const result = await pool.query('SELECT * FROM users WHERE emailUser=?',[email])
+                const result = await pool.query('SELECT * FROM users WHERE email=?',[email])
                 return result
         }    
         async getById ({id}) {
@@ -18,12 +18,12 @@ export class UserModel {
                 const result = await pool.query('SELECT * FROM users')
                 return result
         }
-        async update () {
-                
-        }
         async delete ({email}) {
-        const result = await pool.query('DELETE * FROM users WHERE emalUser=?',[email])
+                const result = await pool.query('DELETE * FROM users WHERE emailUser=?',[email])
 
         return result
+        }
+        async update () {
+                
         }
 }
