@@ -10,7 +10,6 @@ export const ulrImage = (file) =>{
 export const deletelinkFile = ({path}) =>{
     try {
         if(!path) throw new Error('there is not image to delete')
-        console.log(path)
         fs.unlinkSync(`src/uploads/${path}`)
     } catch (error) {
         console.error(error)
