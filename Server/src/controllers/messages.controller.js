@@ -18,7 +18,7 @@ export const addUserMessage = async(req,res)=>{
 
     try {
 
-        await Model.addMessage({id,content,date:nowDate,emailUser})
+        await Model.add({id,content,date:nowDate,emailUser})
         res.status(200).json({message:'add message'})
 
     } catch (error) {
@@ -31,7 +31,7 @@ export const getMessages = async(req,res)=>{
 
     if(email){
         try {
-            const result = await Model.showMessagesUser({email})
+            const result = await Model.get({email})
             console.log(result[0])
             return res.status(200).json(result[0])
         } catch (error) {
@@ -41,7 +41,7 @@ export const getMessages = async(req,res)=>{
     
     try {
 
-        const result = await Model.showMessagesAll()
+        const result = await Model.getAll()
         res.status(200).json(result[0])
 
     } catch (error) {
