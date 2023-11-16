@@ -8,21 +8,23 @@ export class MessageModel {
     
         return result
     }
-
-    async get ({email}) {
-        const result = await pool.query('SELECT * FROM messages WHERE emailUser=?',[email])
+    async getByEmail ({email}) {
+        const result = await pool.query('SELECT * FROM messages WHERE user=?',[email])
         return result
     }
-
+    async getById ({id}) {
+        const result = await pool.query('SELECT * FROM messages WHERE id=?',[id])
+        return result
+    } 
     async getAll () {
         const result = await pool.query('SELECT * FROM messages')
         return result
     }
-    // async update ({id,content,date,emailUser}) {
-    //     const result = await pool.query('SELECT * FROM messages')
-    //     return result
-    // }
-    // async delete () {
-            
-    // }
+    async delete ({email}) {
+        const result = await pool.query('DELETE * FROM users WHERE email=?',[email])
+        return result
+    }
+    async update () {
+                
+    }
 }
