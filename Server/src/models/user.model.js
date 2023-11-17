@@ -19,7 +19,7 @@ export class UserModel {
                 return result
         }
         async delete ({email}) {
-                const result = await pool.query('DELETE * FROM users WHERE emailUser=?',[email])
+                const result = await pool.query('DELETE FROM users WHERE emailUser=?',[email])
 
         return result
         }
