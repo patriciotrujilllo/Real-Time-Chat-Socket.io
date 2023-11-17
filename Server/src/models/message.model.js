@@ -2,14 +2,14 @@ import { pool } from './DBConnection.js'
 
 export class MessageModel {
 
-    async add ({id,content,date,emailUser}){
+    async add ({id,content,emailUser}){
     
-        const result = await pool.query('INSERT INTO messages(id,content,date,emailUser) VALUES(?,?,?,?)',[id,content,date,emailUser])
+        const result = await pool.query('INSERT INTO messages(id,content,emailUser) VALUES(?,?,?)',[id,content,emailUser])
     
         return result
     }
     async getByEmail ({email}) {
-        const result = await pool.query('SELECT * FROM messages WHERE user=?',[email])
+        const result = await pool.query('SELECT * FROM messages WHERE  emailUser=?',[email])
         return result
     }
     async getById ({id}) {
@@ -20,8 +20,8 @@ export class MessageModel {
         const result = await pool.query('SELECT * FROM messages')
         return result
     }
-    async delete ({email}) {
-        const result = await pool.query('DELETE * FROM users WHERE email=?',[email])
+    async delete ({id}) {
+        const result = await pool.query('DELETE FROM messages WHERE id=?',[id])
         return result
     }
     async update () {
