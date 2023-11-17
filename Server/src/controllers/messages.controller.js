@@ -2,7 +2,20 @@ import { validateMessage} from '../validator/message.validator.js'
 import crypto from 'crypto'
 import { MessageModel } from "../models/message.model.js";
 
-const Model = new MessageModel
+const Message = new MessageModel
+
+const _getMessages = async(req,res) =>{
+    try {
+
+        const result = await Message.getAll()
+        const { io } = req
+        io.emit('messages',result[0])
+        res.status(200).json(result[0])
+
+    } catch (error) {
+        return res.status(400).json({message:'error at insert',error})
+    }
+}
 
 export const addUserMessage = async(req,res)=>{
     
@@ -14,12 +27,11 @@ export const addUserMessage = async(req,res)=>{
 
     const id = crypto.randomUUID()
     const {content,emailUser} = validate.data
-    const nowDate = new Date()
 
     try {
 
-        await Model.add({id,content,date:nowDate,emailUser})
-        res.status(200).json({message:'add message'})
+        await Message.add({id,content,emailUser})
+        _getMessages(req,res)
 
     } catch (error) {
         return res.status(400).json({message:'error at insert',error})
@@ -27,24 +39,40 @@ export const addUserMessage = async(req,res)=>{
 }
 export const getMessages = async(req,res)=>{
 
-    const {email} = req.query
+    // const {email} = req.query
 
-    if(email){
-        try {
-            const result = await Model.get({email})
-            console.log(result[0])
-            return res.status(200).json(result[0])
-        } catch (error) {
-            return res.status(400).json(error)
-        }
-    }
+    // if(email){
+    //     try {
+    //         const result = await Message.get({email})
+    //         console.log(result[0])
+    //         return res.status(200).json(result[0])
+    //     } catch (error) {
+    //         return res.status(400).json(error)
+    //     }
+    // }
     
-    try {
-
-        const result = await Model.getAll()
-        res.status(200).json(result[0])
-
-    } catch (error) {
-        return res.status(400).json({message:'error at insert',error})
-    }
+    _getMessages(req,res)
 }
+export const getMessagesById = async(req,res)=>{
+
+    const {id} = req.params
+
+    try {
+        const result = await Message.getById({id})
+        res.status(200).json(result[0])
+    } catch (error) {
+        res.status(400).json(error)
+    }
+
+}
+export const deleteMessage = async(req,res) => {
+    
+    const {id} = req.params
+
+    try {
+        await Message.delete({id})
+        _getMessages(req,res)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}   
