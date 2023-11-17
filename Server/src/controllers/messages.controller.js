@@ -13,7 +13,7 @@ const _getMessages = async(req,res) =>{
         res.status(200).json(result[0])
 
     } catch (error) {
-        return res.status(400).json({message:'error at insert',error})
+        return res.status(400).json({message:'error at get messages',error})
     }
 }
 
@@ -31,7 +31,14 @@ export const addUserMessage = async(req,res)=>{
     try {
 
         await Message.add({id,content,emailUser})
-        _getMessages(req,res)
+        
+        const { io } = req
+        io.emit('message',{
+            message: content,
+            email: emailUser
+        })
+        res.status(200).json({message:'message added'})
+
 
     } catch (error) {
         return res.status(400).json({message:'error at insert',error})
