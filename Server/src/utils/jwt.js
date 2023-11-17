@@ -16,7 +16,7 @@ export const decodeToken = (token) => {
     return jsonwebtoken.verify(token,process.env.SIGN_TOKEN)
 }
 
-export const _tokenPayload = ({user,expiration,tokenType = 'token'}) =>{
+const _tokenPayload = ({user,expiration,tokenType = 'token'}) =>{
     return {
         tokenType,
         user,
