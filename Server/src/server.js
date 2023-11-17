@@ -18,7 +18,12 @@ app.use(cors(corsConfiguration()))
 
 const server = createServer(app)
 const io = new Server(server,{
-    cors: corsConfiguration
+    cors: corsConfiguration()
+})
+
+app.use((req,res,next) => {
+    req.io = io
+    next()
 })
 
 io.on('connection',(socket)=>{
