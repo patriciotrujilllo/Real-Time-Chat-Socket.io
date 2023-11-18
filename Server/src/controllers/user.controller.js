@@ -43,8 +43,9 @@ export const login = async(req,res) =>{
         
         if (!(result[0][0].active)) return res.status(400).json({message:'user is not active',error})
 
-        await compareHashPassword({password,hashed_password:result[0][0].password})
-
+        const bool = await compareHashPassword({password,hashed_password:result[0][0].password})
+        if(!bool) return res.status(401).json({error: 'Invalid user o password'})
+        
         const userReturn = {
             id: result[0][0].id,
             firstName:result[0][0].firstName ,
