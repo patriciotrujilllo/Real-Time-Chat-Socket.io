@@ -5,6 +5,5 @@ export const hashPassword = async({password}) =>{
     return hashed_password
 }
 export const compareHashPassword = async({password,hashed_password}) => {
-    const result = await bcrypt.compare(password,hashed_password)
-    return result
+    return await bcrypt.compare(password,hashed_password)
 }
