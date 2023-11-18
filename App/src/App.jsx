@@ -1,27 +1,33 @@
 import './App.css'
+import { useEffect,Suspense } from 'react'
+import {BrowserRouter,Route,Routes,Navigate} from 'react-router-dom'
 import { io } from 'socket.io-client'
-import { useState,useEffect } from 'react'
+import { Login } from './components/Login'
+import { Messages } from './components/Messages'
+import { useCookies } from 'react-cookie'
+
+function App () {
 
 const socket = io('http://localhost:4000')
+const [cookie] = useCookies(['token'])
 
-function App() {
-
-  const [isConnected,setIsConnected] = useState(false)
-  // const [newMessage,setNewMessage] = useState('')
-  // const [messages,setMessages] = useState([])
-
-  useEffect(()=>{
-
-    socket.on('connect',()=> setIsConnected(true))
-
-  },[])
+useEffect(() => {
+  socket.on('connect', () => {
+    console.log('Conectado al servidor');
+  })
+}, []);
 
   return (
-    <>
-      <h1>Esta Funcionando</h1>
-      <h2>{isConnected ? 'Esta conectado al socket': 'No se conecto al socket'}</h2>
-      
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <BrowserRouter>
+        <Routes>
+
+          <Route path="/" element={cookie?.token ? <Navigate to="/messages"/>: <Login/>}/>
+          <Route path="/messages" element={cookie?.token ? <Messages/> : <Navigate to='/'/>}/>
+
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   )
 }
 
