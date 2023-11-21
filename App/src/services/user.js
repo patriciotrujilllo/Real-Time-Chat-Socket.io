@@ -16,13 +16,13 @@ export const login = async({email,password}) =>{
             },
             body: JSON.stringify({email,password})
         })
-        if(!res.ok) throw new Error('Error en la respuesta del servidor')
+        if(!res.ok) throw new Error(`HTTP error: ${res.status}`)
     
         const data = res.json()
         return data
 
     } catch (error) {
-        console.error(`Error al conectar al servidor`,error)
+        console.error(`Error al conectar al servidor: ${error}`)
     }
     
 }
