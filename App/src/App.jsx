@@ -22,7 +22,7 @@ useEffect(() => {
       <BrowserRouter>
         <Routes>
 
-          <Route path="/" element={cookie?.token ? <Navigate to="/messages"/>: <Login/>}/>
+          <Route path="/" element={<Login/>}/>
           <Route path="/messages" element={cookie?.token ? <Messages/> : <Navigate to='/'/>}/>
 
         </Routes>
