@@ -1,15 +1,13 @@
 import './App.css'
 import { useEffect,Suspense } from 'react'
-import {BrowserRouter,Route,Routes,Navigate} from 'react-router-dom'
+import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import { io } from 'socket.io-client'
 import { Login } from './components/Login'
 import { Messages } from './components/Messages'
-import { useCookies } from 'react-cookie'
 
 function App () {
 
 const socket = io('http://localhost:4000')
-const [cookie] = useCookies(['token'])
 
 useEffect(() => {
   socket.on('connect', () => {
@@ -23,7 +21,7 @@ useEffect(() => {
         <Routes>
 
           <Route path="/" element={<Login/>}/>
-          <Route path="/messages" element={cookie?.token ? <Messages/> : <Navigate to='/'/>}/>
+          <Route path="/messages" element={<Messages/>}/>
 
         </Routes>
       </BrowserRouter>
