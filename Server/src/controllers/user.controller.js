@@ -5,6 +5,7 @@ import { compareHashPassword, hashPassword } from '../utils/auth.js';
 import { deletelinkFile, ulrImage } from '../utils/pathOfImg.js';
 import { createAccessToken, createRefreshToken } from '../utils/jwt.js';
 
+
 const User = new UserModel
 
 export const addUserController = async(req,res)=>{
@@ -52,11 +53,15 @@ export const login = async(req,res) =>{
             lastName:result[0][0].lastName,
             email: result[0][0].email
         }
+
+        res.cookie('token',createAccessToken(userReturn), {httpOnly: true})
+        res.cookie('refresh',createRefreshToken(userReturn), {httpOnly: true})
         
-        res.status(200).json({
-            token:createAccessToken(userReturn),
-            refresh:createRefreshToken(userReturn)
-    })
+    //     res.status(200).json({
+    //         token:createAccessToken(userReturn),
+    //         refresh:createRefreshToken(userReturn)
+    // })
+    res.status(200).json({response:'Funciono'})
 
     } catch (error) {
         return res.status(401).json({error: 'Invalid user o password'})
