@@ -7,10 +7,12 @@ import { Server } from 'socket.io'
 import { createServer } from 'node:http'
 import { corsConfiguration } from './utils/corsConfiguration.js'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 config()
 
 const app = express()
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.static('/Server/src/uploads'))
 app.use(logger('dev'))
