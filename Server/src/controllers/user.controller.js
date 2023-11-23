@@ -1,9 +1,9 @@
 import { validateUser} from '../validator/user.validator.js'
 import crypto from 'crypto'
 import { UserModel } from "../models/user.model.js";
-import { compareHashPassword, hashPassword } from '../utils/auth.js';
+import { hashPassword } from '../utils/auth.js';
 import { deletelinkFile, ulrImage } from '../utils/pathOfImg.js';
-import { createAccessToken, createRefreshToken } from '../utils/jwt.js';
+
 
 
 const User = new UserModel
@@ -33,37 +33,5 @@ export const addUserController = async(req,res)=>{
     } catch (error) {
         deletelinkFile({path:imgPath})
         return res.status(400).json({message:'error at insert user',error})
-    }
-}
-
-export const login = async(req,res) =>{
-    const {email,password} = req.body
-
-    try {
-        const result = await User.getByEmail({email})
-        
-        if (!(result[0][0].active)) return res.status(400).json({message:'user is not active',error})
-
-        const bool = await compareHashPassword({password,hashed_password:result[0][0].password})
-        if(!bool) return res.status(401).json({error: 'Invalid user o password'})
-        
-        const userReturn = {
-            id: result[0][0].id,
-            firstName:result[0][0].firstName ,
-            lastName:result[0][0].lastName,
-            email: result[0][0].email
-        }
-
-        res.cookie('token',createAccessToken(userReturn), {httpOnly: true})
-        res.cookie('refresh',createRefreshToken(userReturn), {httpOnly: true})
-        
-    //     res.status(200).json({
-    //         token:createAccessToken(userReturn),
-    //         refresh:createRefreshToken(userReturn)
-    // })
-    res.status(200).json({response:'Funciono'})
-
-    } catch (error) {
-        return res.status(401).json({error: 'Invalid user o password'})
     }
 }
