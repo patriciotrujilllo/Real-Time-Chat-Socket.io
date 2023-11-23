@@ -1,25 +1,28 @@
 import jsonwebtoken from 'jsonwebtoken'
 
-export const createAccessToken = (user) => {
+export const createAccessToken = (userToken) => {
     const expiration = new Date()
-    expiration.setHours(expiration.getHours() + 2)
-    return jsonwebtoken.sign(_tokenPayload({user,expiration}),process.env.SIGN_TOKEN)
+    expiration.setMinutes(expiration.getMinutes() + 15)
+    return jsonwebtoken.sign(_tokenPayload({userToken,expiration}),process.env.ACCESS_TOKEN_SECRET)
 }
 
-export const createRefreshToken = (user) => {
+export const createRefreshToken = (userToken) => {
     const expiration = new Date()
-    expiration.setMonth(expiration.getMonth() + 1)
-    return jsonwebtoken.sign(_tokenPayload({user,expiration}),process.env.SIGN_TOKEN)
+    expiration.setMinutes(expiration.getMinutes() + 120)
+    return jsonwebtoken.sign(_tokenPayload({userToken,expiration}),process.env.REFRESH_TOKEN_SECRET)
 }
 
 export const decodeToken = (token) => {
-    return jsonwebtoken.verify(token,process.env.SIGN_TOKEN)
+    return jsonwebtoken.verify(token,process.env.ACCESS_TOKEN_SECRET)
+}
+export const decodeTokenRefresh = (token) => {
+    return jsonwebtoken.verify(token,process.env.REFRESH_TOKEN_SECRET)
 }
 
-const _tokenPayload = ({user,expiration,tokenType = 'token'}) =>{
+const _tokenPayload = ({userToken,expiration,tokenType = 'token'}) =>{
     return {
         tokenType,
-        user,
+        ...userToken,
         iat: new Date().getTime(),
         exp: expiration.getTime()
     }
