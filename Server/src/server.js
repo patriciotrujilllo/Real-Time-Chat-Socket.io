@@ -8,6 +8,7 @@ import { createServer } from 'node:http'
 import { corsConfiguration } from './utils/corsConfiguration.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import { authRouter } from './routes/auth.router.js'
 
 config()
 
@@ -36,6 +37,7 @@ io.on('connection',(socket)=>{
     })
 }) 
 
+app.use('/auth',authRouter)
 app.use('/user',userRouter)
 app.use('/message',messagesRouter)
 
