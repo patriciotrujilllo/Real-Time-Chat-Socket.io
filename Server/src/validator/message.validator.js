@@ -5,9 +5,9 @@ const messagesShema = z.object({
         required_error: 'message is required',
         invalid_type_error: 'message must be a string'
     }),
-    emailUser: z.string().email({
-        required_error: 'email is required',
-        invalid_type_error: 'email must be a type email'
+    idUser: z.string({
+        required_error: 'ID is required',
+        invalid_type_error: 'idUser must be a type STRING'
     })
 })
 
