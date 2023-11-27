@@ -26,11 +26,11 @@ export const addUserMessage = async(req,res)=>{
     }
 
     const id = crypto.randomUUID()
-    const {content,emailUser} = validate.data
+    const {content,idUser} = validate.data
 
     try {
 
-        await Message.add({id,content,emailUser})
+        await Message.add({id,content,idUser})
         
         const { io } = req
         io.emit('message',{
