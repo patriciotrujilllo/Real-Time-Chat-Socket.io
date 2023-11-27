@@ -1,13 +1,16 @@
 import { validateUser } from '../validator/user.validator.js'
 import crypto from 'crypto'
 import { UserModel } from "../models/user.model.js";
+import { MessageModel } from "../models/message.model.js";
 import { hashPassword } from '../utils/auth.js';
 import { deletelinkFile, ulrImage } from '../utils/pathOfImg.js';
 import { validateUpdateUserPartial } from '../validator/userUpdate.validator.js';
+import { Console } from 'console';
 
 
 
 const User = new UserModel
+const Messages = new MessageModel
 
 export const addUserController = async(req,res)=>{
 
@@ -20,7 +23,7 @@ export const addUserController = async(req,res)=>{
     const { password,email } = validate.data
 
     const duplicate = await User.getByEmail({email})
-    if(duplicate) return res.status(409).json({message: 'Duplicate username'})
+    if(duplicate[0].length) return res.status(409).json({message: 'Duplicate username'})
         
     const imgPath = ulrImage(file)
     const id = crypto.randomUUID()
@@ -62,12 +65,6 @@ export const updateUserController = async(req,res)=>{
     if(file) newvalidate.img = ulrImage(file)
     if(password) newvalidate.password = await hashPassword({password})
     
-    // const columns = Object.keys(newvalidate).map(col => `${col} = ?`).join(', ');
-    //             const values = Object.values(newvalidate);
-    //             const sql = `UPDATE usuarios SET ${columns} WHERE id = ?`;
-    //             values.push(id);
-    //             console.log(sql,values)
-    
     try {
         await User.updatebyId({id,data: newvalidate})
         res.status(200).json({ message:'update user'})
@@ -76,11 +73,40 @@ export const updateUserController = async(req,res)=>{
         return res.status(400).json({message:'error at update user',error})
     }
 }
-export const deleteUserController = async(req,res)=>{
+export const deleteUser = async(req,res)=>{
+    const {id} = req.body
+    if(!id) return res.status(400).json({message: 'User id Required'})
+
+    const messages = await Messages.getByIdOfUser({id})
+    
+    if (messages[0].length) return res.status(400).json({message:'User has assigned messages'})
+
+    const user = await User.getById({id})
+    console.log(user[0].length)
+    if(!(user[0].length)) return res.status(400).json({message:'User not found'})
+
+    try {
+        await User.deletebyId({id})
+        return res.status(200).json({message: 'User deleted'})
+    } catch (error) {
+        res.status(400).json({message: 'error delete user'})
+    }
 }
-export const seachUsersController = async(req,res)=>{
+export const getAllUsers = async(req,res)=>{
+    try {
+        const result = await User.getAll()
+        return res.status(200).json(result[0])
+    } catch (error) {
+        res.status(400).json({message: 'server error'})
+    }
 }
-export const seachUserbyIdController = async(req,res)=>{
-}
-export const seachUserbyEmailController = async(req,res)=>{
+export const getUserbyId = async(req,res)=>{
+    const {id} = req.body
+
+    try {
+        const result = await User.deletebyId({id})
+        return res.status(200).json(result[0][0])
+    } catch (error) {
+        res.status(400).json({message: 'User not found'})
+    }
 }
