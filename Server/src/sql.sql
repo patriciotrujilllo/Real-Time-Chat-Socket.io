@@ -4,7 +4,7 @@
 
 CREATE DATABASE IF NOT EXISTS chat;
 
-USE chat 
+USE chat
 
 #Estructura de para la tabla de roles
 
@@ -29,17 +29,20 @@ CREATE TABLE
         roleId int NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (roleId) REFERENCES roles(id)
-    ) #Se crea tabla de messages
+    );
+
+#Se crea tabla de messages
+
 CREATE TABLE
     messages(
         id VARCHAR(36) not NULL,
         content VARCHAR(255) NOT NULL,
         date TIMESTAMP NOT NULL DEFAULT current_timestamp(),
-        idEmail VARCHAR(36) not NULL,
+        idUser VARCHAR(36) not NULL,
         PRIMARY KEY (id),
-        FOREIGN KEY (idEmail) REFERENCES users(id)
+        FOREIGN KEY (idUser) REFERENCES users(id)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-INSERT INTO roles(id, name) VALUES(1, 'admin') 
+INSERT INTO roles(id, name) VALUES(1, 'admin')
 
-INSERT INTO roles(id, name) VALUES(2, 'user') 
+INSERT INTO roles(id, name) VALUES(2, 'user')
