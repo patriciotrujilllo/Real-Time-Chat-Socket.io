@@ -19,6 +19,7 @@ export const login = async(req,res) =>{
         
         const userReturn = {
             firstName:result[0][0].firstName ,
+            id: result[0][0].id,
             email: result[0][0].email,
             roleId: result[0][0].roleId
         }
