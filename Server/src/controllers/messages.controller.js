@@ -8,6 +8,7 @@ const _getMessages = async(req,res) =>{
     try {
 
         const result = await Message.getAll()
+        if(!(result.length)) return res.status(400).json({message: 'No notes found'})
         const { io } = req
         io.emit('messages',result[0])
         res.status(200).json(result[0])
@@ -35,7 +36,7 @@ export const addUserMessage = async(req,res)=>{
         const { io } = req
         io.emit('message',{
             message: content,
-            email: emailUser
+            idUser: idUser
         })
         res.status(200).json({message:'message added'})
 
