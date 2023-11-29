@@ -28,7 +28,7 @@ export class MessageModel {
         const result = await pool.query('DELETE FROM messages WHERE id=?',[id])
         return result
     }
-    async update () {
-                
+    async update ({id,content,idUser}) {
+            return await pool.query('UPDATE messages SET content = ?,idUser = ? WHERE id = ?',[content,idUser,id])
     }
 }
