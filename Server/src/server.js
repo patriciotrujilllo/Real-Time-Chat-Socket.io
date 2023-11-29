@@ -9,6 +9,7 @@ import { corsConfiguration } from './utils/corsConfiguration.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { authRouter } from './routes/auth.router.js'
+import { errorHandler } from './middleware/errorHandler.js'
 
 config()
 
@@ -40,6 +41,8 @@ io.on('connection',(socket)=>{
 app.use('/auth',authRouter)
 app.use('/user',userRouter)
 app.use('/message',messagesRouter)
+
+app.use('*',errorHandler)
 
 const PORT = process.env.PORT || 3000
 
