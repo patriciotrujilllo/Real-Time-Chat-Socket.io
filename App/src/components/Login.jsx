@@ -1,17 +1,18 @@
 import { useState} from "react"
 import { login } from "../services/user"
+import { FormContainer } from "../styled-conponents"
 // import { Navigate } from "react-router-dom"
 
 export const Login = () => {
 
-    const [changeEmail,setChangeEmail] = useState('')
+    const [email,setEmail] = useState('')
     const [changePassword,setChangePassword] = useState('')
     const [error,setError] = useState('')
     
     const handleForm = async(e) => {
         e.preventDefault()
         try {
-            const data = await login({email:changeEmail,password:changePassword})
+            const data = await login({email,password:changePassword})
             console.log(data)
             
         } catch (err) {
@@ -22,15 +23,16 @@ export const Login = () => {
     }
 
     return (
-        <div className="container">
+        <>
+        <FormContainer>
             <form onSubmit={handleForm}>
-                <label htmlFor="username">Username</label>
+                <label htmlFor="email">Email </label>
                 <input 
                 type="text" 
-                id="username"
+                id="email"
                 autoComplete="off"
-                onChange={(e)=>setChangeEmail(e.target.value)}
-                value={changeEmail}
+                onChange={(e)=>setEmail(e.target.value)}
+                value={email}
                 required
                 />
     
@@ -46,6 +48,7 @@ export const Login = () => {
                 <button>Iniciar sesion</button>
             </form>
             {error && error}
-        </div>
+        </FormContainer>
+        </>
     )
 }
