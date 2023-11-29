@@ -82,7 +82,6 @@ export const deleteUser = async(req,res)=>{
     if (messages[0].length) return res.status(400).json({message:'User has assigned messages'})
 
     const user = await User.getById({id})
-    console.log(user[0].length)
     if(!(user[0].length)) return res.status(400).json({message:'User not found'})
 
     try {
