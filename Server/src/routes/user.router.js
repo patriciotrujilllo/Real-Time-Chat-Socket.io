@@ -8,7 +8,7 @@ const multipartyMiddleware = multiparty({uploadDir: 'src/uploads/users'})
 export const userRouter = Router()
 // userRouter.use(userAuthenticated)
 
-userRouter.post('/',multipartyMiddleware,addUserController)
+userRouter.post('/register',multipartyMiddleware,addUserController)
 userRouter.patch('/',userAuthenticated,multipartyMiddleware,updateUserController)
 userRouter.get('/',userAuthenticated,getAllUsers)
 userRouter.delete('/',userAuthenticated,deleteUser)
