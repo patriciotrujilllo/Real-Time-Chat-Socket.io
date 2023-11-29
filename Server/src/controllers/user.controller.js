@@ -15,6 +15,7 @@ const Messages = new MessageModel
 export const addUserController = async(req,res)=>{
 
     const file = req.files.img
+    req.body.roleId = req.body.roleId || '2'
     const newvalidate = {...req.body,img:file}
     const validate = validateUser(newvalidate)
     
