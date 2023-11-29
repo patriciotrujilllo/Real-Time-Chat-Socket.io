@@ -20,8 +20,6 @@ const userShema = z.object({
         invalid_type_error: 'lastName must be a string'
     }),
 
-    active: z.string().transform(parseInt).optional().default(1),
-
     email: z.string().email({
         required_error: 'email is required',
         invalid_type_error: 'email must be a type @email'
