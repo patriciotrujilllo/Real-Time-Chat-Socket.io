@@ -1,9 +1,9 @@
 import { pool } from './DBConnection.js'
 
 export class UserModel {
-        async add ({id,firstName,lastName,active,email,password,roleId,img}) {
+        async add ({id,firstName,lastName,email,password,roleId,img}) {
 
-                await pool.query('INSERT INTO users(id, firstName, lastName, active, email, password, img, roleId) VALUES(?,?,?,?,?,?,?,?)',[id,firstName,lastName,Number(active),email,password,img,roleId])
+                await pool.query('INSERT INTO users(id, firstName, lastName, email, password, img, roleId) VALUES(?,?,?,?,?,?,?)',[id,firstName,lastName,email,password,img,roleId])
         
         }
         async getAll () {
