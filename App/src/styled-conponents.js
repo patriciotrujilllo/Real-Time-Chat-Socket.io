@@ -27,6 +27,10 @@ export const FormContainer = styled.div`
                 background-color: white;
             }
         }
+        a {
+            color: white;
+        }
+
     }
     
 `
