@@ -24,9 +24,14 @@ export const login = async(req,res) =>{
             roleId: result[0][0].roleId
         }
 
-        res.cookie('refreshToken',createRefreshToken(userReturn), {httpOnly: true,sameSite:'None',maxAge: 15*60*1000})
+        res.cookie('refreshToken', createRefreshToken(userReturn), {
+            httpOnly: true,
+            sameSite: 'None',
+            secure: true,
+            maxAge: 15 * 60 * 1000
+        })
         
-        res.status(200).json({accessToken:createAccessToken(userReturn)})
+        res.status(200).json({role: result[0][0].roleId,accessToken:createAccessToken(userReturn)})
 
     } catch (error) {
         return res.status(401).json({error: 'Invalid user o password'})
