@@ -1,19 +1,28 @@
 import { useState} from "react"
-import { login } from "../services/user"
+import { loginWithAxios } from "../services/user"
 import { FormContainer } from "../styled-conponents"
-// import { Navigate } from "react-router-dom"
+import { Link,useNavigate,useLocation } from "react-router-dom"
+import { useAuth } from "../hooks/useAuth"
+
 
 export const Login = () => {
-
+    
     const [email,setEmail] = useState('')
     const [changePassword,setChangePassword] = useState('')
     const [error,setError] = useState('')
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/messages"
+    const {setAuth} = useAuth()
     
     const handleForm = async(e) => {
         e.preventDefault()
         try {
-            const data = await login({email,password:changePassword})
-            console.log(data)
+            const data = await loginWithAxios({email,password:changePassword})
+            setAuth({accessToken: data.accessToken, user:email , role: data.role})
+
+            navigate(from, { replace: true})
             
         } catch (err) {
             console.error(err)
@@ -46,6 +55,7 @@ export const Login = () => {
                 />
                 
                 <button>Iniciar sesion</button>
+                <span> ¿No tienes una cuenta? <Link to="/">Registrame</Link></span>
             </form>
             {error && error}
         </FormContainer>
