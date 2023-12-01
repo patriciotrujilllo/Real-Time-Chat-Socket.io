@@ -2,6 +2,8 @@ import { useState} from "react"
 import { register } from "../services/user"
 import { Link } from "react-router-dom"
 import { FormContainer } from "../styled-conponents"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Register = () => {
 
@@ -16,25 +18,38 @@ export const Register = () => {
     const handleForm = async(e) => {
         e.preventDefault()
 
-        const formData = new FormData()
-        formData.append('firstName',fisrtName)
-        formData.append('lastName',lastName)
-        formData.append('email',email)
-        formData.append('password',password)
-        formData.append('confirmpassword',confirmpassword)
-        formData.append('img',imagen)
-        try {
-            const data = await register(formData)
-            console.log(data)
-            
-        } catch (err) {
-            console.error(err)
-            setError(err)
+        if(password!==confirmpassword){
+            console.log("son distintos")
+            toast.error("password and confirm password should be same",{
+                position: "bottom-right",
+                autoClose: 5000,
+                pauseOnHover: true,
+                theme:"dark"
+            })
         }
+        else{
+            const formData = new FormData()
+            formData.append('firstName',fisrtName)
+            formData.append('lastName',lastName)
+            formData.append('email',email)
+            formData.append('password',password)
+            formData.append('confirmpassword',confirmpassword)
+            formData.append('img',imagen)
+            try {
+                const data = await register(formData)
+                console.log(data)
+                
+            } catch (err) {
+                console.error(err)
+                setError(err)
+            }
+        }
+        
         
     }
 
     return (
+        <>
         <FormContainer>
             <form onSubmit={handleForm}>
                 <label htmlFor="firstname">Firstname </label>
@@ -98,5 +113,7 @@ export const Register = () => {
             </form>
             {error && error}
         </FormContainer>
+        <ToastContainer />
+        </>
     )
 }
