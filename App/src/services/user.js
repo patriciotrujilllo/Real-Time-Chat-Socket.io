@@ -12,6 +12,7 @@ export const login = async({email,password}) =>{
             headers:{
                 'Content-Type':'application/json',
             },
+            credentials: "include",
             body: JSON.stringify({email,password})
         })
         if(!res.ok) throw new Error(`HTTP error: ${res.status}`)
@@ -29,13 +30,14 @@ export const loginWithAxios = async({email,password}) =>{
 
     try {
         
-        const data = await axios.post(`${PORT}/auth/login`,{email,password},{
+        const result = await axios.post(`${PORT}/auth/login`,{email,password},{
             headers:{
                 'Content-Type':'application/json',
             }
+
         })
 
-        return data
+        return result.data
 
     } catch (error) {
         console.error(`Error al conectar al servidor: ${error}`)
