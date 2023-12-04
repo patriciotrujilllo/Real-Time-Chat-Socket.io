@@ -9,9 +9,9 @@ export const userAuthenticated = (req,res, next) =>{
         const dataUser = decodeToken(token)
         const {exp} = dataUser
         const currentTime = new Date().getTime()
-        if(exp < currentTime) return res.status(401).json({message:'Unauthorized'})
+        if(exp < currentTime) return res.status(403).json({message:'Forbidden'})
     } catch (error) {
-        return res.status(403).json({response:'Forbidden'})
+        return res.status(401).json({response:'Unauthorized'})
     }
     next()
 }
