@@ -2,13 +2,13 @@ import jsonwebtoken from 'jsonwebtoken'
 
 export const createAccessToken = (userToken) => {
     const expiration = new Date()
-    expiration.setMinutes(expiration.getMinutes() + 15)
+    expiration.setMinutes(expiration.getMinutes() + 1)
     return jsonwebtoken.sign(_tokenPayload({userToken,expiration}),process.env.ACCESS_TOKEN_SECRET)
 }
 
 export const createRefreshToken = (userToken) => {
     const expiration = new Date()
-    expiration.setMinutes(expiration.getMinutes() + 120)
+    expiration.setMinutes(expiration.getMinutes() + 2)
     return jsonwebtoken.sign(_tokenPayload({userToken,expiration}),process.env.REFRESH_TOKEN_SECRET)
 }
 
