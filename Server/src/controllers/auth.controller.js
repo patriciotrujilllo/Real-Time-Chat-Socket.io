@@ -28,7 +28,7 @@ export const login = async(req,res) =>{
             httpOnly: true,
             sameSite: 'None',
             secure: true,
-            maxAge: 15 * 60 * 1000
+            maxAge: 10 * 60 * 1000
         })
         
         res.status(200).json({role: result[0][0].roleId,accessToken:createAccessToken(userReturn)})
@@ -51,7 +51,13 @@ export const refresh = async(req,res) => {
     } catch (error) {
         return res.status(403).json({message: 'Forbidden'})
     }
+
+    const {exp} = token
+    const currentTime = new Date().getTime()
+    if(exp < currentTime) return res.status(403).json({message:'Forbidden'})
+
     let result
+
     try {
         result = await User.getByEmail({email: token.email}) 
     } catch (error) {
