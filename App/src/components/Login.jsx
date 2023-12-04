@@ -14,15 +14,14 @@ export const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const from = location.state?.from?.pathname || "/messages"
-    const {setAuth} = useAuth()
+    const {updateAuthLogin} = useAuth()
     
     const handleForm = async(e) => {
         e.preventDefault()
         try {
             const data = await loginWithAxios({email,password:changePassword})
             const auth = {accessToken: data.accessToken, user:email , role: data.role}
-            setAuth({...auth})
-            window.localStorage.setItem('auth',JSON.stringify(auth))
+            updateAuthLogin(auth)
             navigate(from, { replace: true})
             
         } catch (err) {
