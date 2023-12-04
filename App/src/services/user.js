@@ -1,40 +1,12 @@
-import axios from 'axios'
-
-const PORT = 'http://localhost:4000'
-
-
-export const login = async({email,password}) =>{
-
-    try {
-        
-        const res = await fetch(`${PORT}/auth/login`,{
-            method: 'POST',
-            headers:{
-                'Content-Type':'application/json',
-            },
-            credentials: "include",
-            body: JSON.stringify({email,password})
-        })
-        if(!res.ok) throw new Error(`HTTP error: ${res.status}`)
-    
-        const data = res.json()
-        return data
-
-    } catch (error) {
-        console.error(`Error al conectar al servidor: ${error}`)
-    }
-    
-}
+// import axios from 'axios'
+import { instancePublic } from "./axios"
 
 export const loginWithAxios = async({email,password}) =>{
 
     try {
         
-        const result = await axios.post(`${PORT}/auth/login`,{email,password},{
-            headers:{
-                'Content-Type':'application/json',
-            }
-
+        const result = await instancePublic.post(`/auth/login`,{email,password},{
+            withCredentials: true
         })
 
         return result.data
@@ -46,11 +18,7 @@ export const loginWithAxios = async({email,password}) =>{
 }
 export const register = async(formData) =>{
         
-        const response = await axios.post(`${PORT}/user/register`,formData,{
-            headers:{
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        const response = await instancePublic.post(`/user/register`,formData)
         return response.data
     
     
