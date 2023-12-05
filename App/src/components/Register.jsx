@@ -19,7 +19,6 @@ export const Register = () => {
         e.preventDefault()
 
         if(password!==confirmpassword){
-            console.log("son distintos")
             toast.error("password and confirm password should be same",{
                 position: "bottom-right",
                 autoClose: 5000,
@@ -36,11 +35,9 @@ export const Register = () => {
             formData.append('confirmpassword',confirmpassword)
             formData.append('img',imagen)
             try {
-                const data = await register(formData)
-                console.log(data)
+                await register(formData)
                 
             } catch (err) {
-                console.error(err)
                 setError(err)
             }
         }
