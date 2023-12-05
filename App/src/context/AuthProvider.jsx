@@ -10,12 +10,10 @@ export const AuthProvider = ({children}) =>{
     const updateAuth = (result) => {
         const newAuth = {...result}
         // window.localStorage.setItem('auth', JSON.stringify(newAuth))
-        console.log(`Esto es en el context: `,newAuth)
         setAuth(newAuth)
     }
 
     const updateAuthLogin = (newAuth) => {
-        console.log(newAuth)
         // window.localStorage.setItem('auth', JSON.stringify(newAuth))
         setAuth(newAuth)
     }
