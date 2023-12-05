@@ -20,7 +20,7 @@ export const Login = () => {
         e.preventDefault()
         try {
             const data = await loginWithAxios({email,password:changePassword})
-            const auth = {accessToken: data.accessToken, user:email , role: data.role}
+            const auth = {accessToken: data.accessToken, email:email , roleId: data.roleId}
             updateAuthLogin(auth)
             navigate(from, { replace: true})
             
