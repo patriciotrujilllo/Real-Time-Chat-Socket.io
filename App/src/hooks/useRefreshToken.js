@@ -7,8 +7,9 @@ const useRefreshToken = () => {
     const refresh = async() => {
 
         const result = await refreshToken()
-        updateAuth({accessToken: result.accessToken})
-        return result.accessToken
+        // const data = {accessToken: result.accessToken, email: result.email , roleId : result.roleId}
+        updateAuth(result)
+        return result
     }
     return refresh
 }
