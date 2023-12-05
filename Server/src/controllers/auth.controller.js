@@ -31,7 +31,7 @@ export const login = async(req,res) =>{
             maxAge: 10 * 60 * 1000
         })
         
-        res.status(200).json({role: result[0][0].roleId,accessToken:createAccessToken(userReturn)})
+        res.status(200).json({roleId: result[0][0].roleId,accessToken:createAccessToken(userReturn)})
 
     } catch (error) {
         return res.status(401).json({error: 'Invalid user o password'})
@@ -71,13 +71,13 @@ export const refresh = async(req,res) => {
         roleId: result[0][0].roleId
     }
 
-    res.json({accessToken:createAccessToken(userReturn)})
+    res.json({accessToken:createAccessToken(userReturn), roleId: result[0][0].roleId, email: result[0][0].email })
 
 }
 
 export const logout = (req, res) => {
     const cookies = req.cookies
     if(!cookies?.refreshToken) return res.status(204)
-    res.clearCookie('refreshToken',{httpOnly: true,sameSite:'None'})
+    res.clearCookie('refreshToken',{httpOnly: true,sameSite:'None', secure: true})
     res.json({message: 'cookie cleared'})
 }
