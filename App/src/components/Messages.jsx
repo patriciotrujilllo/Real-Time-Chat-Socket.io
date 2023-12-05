@@ -1,8 +1,10 @@
 import { useEffect } from "react"
 import useAxiosRefresh from "../hooks/useAxiosRefresh"
 import { useNavigate,useLocation } from "react-router-dom"
+import useLogout from "../hooks/useLogout"
 
 export const Messages = () => {
+    const logout = useLogout()
     const axios = useAxiosRefresh()
     const navigate = useNavigate()
     const location = useLocation()
@@ -31,6 +33,7 @@ export const Messages = () => {
         {/* {
             messages ? messages.map(message=> <h3 key={message.id}>{message.content}</h3>) : <h3>No hay mensajes</h3>
         } */}
+        <button onClick={logout}>Logout</button>
         </>
     )
 }
