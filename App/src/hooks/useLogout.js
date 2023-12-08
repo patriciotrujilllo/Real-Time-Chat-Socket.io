@@ -2,18 +2,18 @@ import { instanceRefresh } from "../services/axios"; //se utiliza esta instancia
 import { useAuth } from "./useAuth";
 
 const useLogout = () => {
-    const { updateAuth } = useAuth()
+	const { updateAuth } = useAuth()
 
-    const logout = async() => {
-        updateAuth({})
-        try {
-            await instanceRefresh.post('/auth/logout')
-        } catch (err) {
-            console.error(err)
-        }
-    }
+	const logout = async() => {
+		updateAuth({})
+		try {
+			await instanceRefresh.post('/auth/logout')
+		} catch (err) {
+			console.error(err)
+		}
+	}
 
-    return logout
+	return logout
 }
 
 export default useLogout
