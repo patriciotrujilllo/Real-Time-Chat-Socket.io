@@ -5,41 +5,41 @@ import { useAuth } from '../hooks/useAuth'
 
 
 const PersistLogin = () => {
-    const [ isLoading,setIsLoading] = useState(true)
-    const { auth } = useAuth()
-    const refresh = useRefreshToken()
+	const [ isLoading,setIsLoading] = useState(true)
+	const { auth } = useAuth()
+	const refresh = useRefreshToken()
 
-    useEffect(()=> {
+	useEffect(()=> {
 
-        const verifyRefreshToken = async() =>{
-            try {
-                await refresh()
-            } catch (err) {
-                console.error(err)
-            } finally{
-                setIsLoading(false)
-            }
-        }
+		const verifyRefreshToken = async() =>{
+			try {
+				await refresh()
+			} catch (err) {
+				console.error(err)
+			} finally{
+				setIsLoading(false)
+			}
+		}
 
-        !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false)
+		!auth?.accessToken ? verifyRefreshToken() : setIsLoading(false)
 
-    },[])
+	},[])
 
-    // useEffect(()=> {
-    //     console.log(`isLoading: ${isLoading}`)
-    //     console.log(`aT: ${auth?.accessToken}`)
-    //     console.log(`roleId de la recarga: ${auth.roleId}`)
-    // },[isLoading])
+	// useEffect(()=> {
+	//     console.log(`isLoading: ${isLoading}`)
+	//     console.log(`aT: ${auth?.accessToken}`)
+	//     console.log(`roleId de la recarga: ${auth.roleId}`)
+	// },[isLoading])
 
-    return (
-        <>
+	return (
+		<>
 
-            {
-                isLoading ? <p>Loading...</p> : <Outlet/>
-            }
+			{
+				isLoading ? <p>Loading...</p> : <Outlet/>
+			}
         
-        </>
-    )
+		</>
+	)
 }
 
 export default PersistLogin
