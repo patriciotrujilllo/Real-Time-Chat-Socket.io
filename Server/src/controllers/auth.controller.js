@@ -31,7 +31,7 @@ export const login = async(req,res) =>{
             maxAge: 10 * 60 * 1000
         })
         
-        res.status(200).json({roleId: result[0][0].roleId,accessToken:createAccessToken(userReturn)})
+        res.status(200).json({accessToken:createAccessToken(userReturn)})
 
     } catch (error) {
         return res.status(401).json({error: 'Invalid user o password'})
@@ -67,6 +67,7 @@ export const refresh = async(req,res) => {
 
     const userReturn = {
         firstName:result[0][0].firstName ,
+        id: result[0][0].id,
         email: result[0][0].email,
         roleId: result[0][0].roleId
     }
