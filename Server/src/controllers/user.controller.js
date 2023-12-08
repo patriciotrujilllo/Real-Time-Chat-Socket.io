@@ -93,9 +93,12 @@ export const deleteUser = async(req,res)=>{
     }
 }
 export const getAllUsers = async(req,res)=>{
+    const { id } = req.body
+    console.log(id)
     try {
         const result = await User.getAll()
-        return res.status(200).json(result[0])
+        const users = result[0].filter(item=> item.id !== id)
+        return res.status(200).json(users)
     } catch (error) {
         res.status(400).json({message: 'server error'})
     }
