@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multiparty from 'connect-multiparty'
-import { addUserController,updateUserController,getAllUsers,deleteUser } from "../controllers/user.controller.js";
+import { addUserController,updateUserController,getAllUsers,deleteUser,imageUser } from "../controllers/user.controller.js";
 import { userAuthenticated } from "../middleware/authorization.js";
 
 
@@ -11,4 +11,7 @@ export const userRouter = Router()
 userRouter.post('/register',multipartyMiddleware,addUserController)
 userRouter.patch('/',userAuthenticated,multipartyMiddleware,updateUserController)
 userRouter.get('/',userAuthenticated,getAllUsers)
+// userRouter.get('/',userAuthenticated,getUserbyId)
+userRouter.get('/image',userAuthenticated,imageUser)
+userRouter.get('/contactsImages',userAuthenticated,imageUser)
 userRouter.delete('/',userAuthenticated,deleteUser)
