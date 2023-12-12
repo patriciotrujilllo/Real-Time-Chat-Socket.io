@@ -10,13 +10,16 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { authRouter } from './routes/auth.router.js'
 import { errorHandler } from './middleware/errorHandler.js'
+import path from 'path'
+import { userAuthenticated } from './middleware/authorization.js'
+
 
 config()
 
 const app = express()
 app.use(cookieParser())
 app.use(express.json())
-app.use(express.static('/Server/src/uploads'))
+app.use('/uploads/users', express.static(path.join(process.cwd(), 'src/uploads/users')))
 app.use(logger('dev'))
 app.use(cors(corsConfiguration()))
 
