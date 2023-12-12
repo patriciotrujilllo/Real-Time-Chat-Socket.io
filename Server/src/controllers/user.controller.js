@@ -5,18 +5,22 @@ import { MessageModel } from "../models/message.model.js";
 import { hashPassword } from '../utils/auth.js';
 import { deletelinkFile, ulrImage } from '../utils/pathOfImg.js';
 import { validateUpdateUserPartial } from '../validator/userUpdate.validator.js';
-import { Console } from 'console';
-
-
+import path from 'path'
+import fs from 'fs/promises'
 
 const User = new UserModel
 const Messages = new MessageModel
 
 export const addUserController = async(req,res)=>{
 
-    const file = req.files.img
+    const file = req.files && req.files.img && req.files.img.type ? req.files.img : false
+    
+    if(file) req.body.img = file
     req.body.roleId = req.body.roleId || '2'
-    const newvalidate = {...req.body,img:file}
+
+    
+
+    const newvalidate = {...req.body}
     const validate = validateUser(newvalidate)
     
     if(validate.error) return res.status(400).json({ error: JSON.parse(validate.error.message)})
@@ -25,16 +29,29 @@ export const addUserController = async(req,res)=>{
 
     const duplicate = await User.getByEmail({email})
     if(duplicate[0].length) return res.status(409).json({message: 'Duplicate username'})
-        
-    const imgPath = ulrImage(file)
+    
+    console.log(file)
+
+
+    if(file){
+        console.log('paso por dentro del if')
+        const imgPath = ulrImage(file)
+        validate.data.img = imgPath
+    }
+    else {
+        validate.data.img = 'DefaultImage.png'
+    }
+    
     const id = crypto.randomUUID()
+    console.log(validate.data)
+
 
     try {
         const hashed_password = await hashPassword({password})
-        await User.add({...validate.data,password:hashed_password,id,img:imgPath})
+        await User.add({...validate.data,password:hashed_password,id})
         res.status(200).json({ message:'user add'})
     } catch (error) {
-        deletelinkFile({path:imgPath})
+        deletelinkFile({path:validate.data.img})
         return res.status(400).json({message:'error at insert user'})
     }
 }
@@ -75,7 +92,7 @@ export const updateUserController = async(req,res)=>{
     }
 }
 export const deleteUser = async(req,res)=>{
-    const {id} = req.body
+    const {id} = req
     if(!id) return res.status(400).json({message: 'User id Required'})
 
     const messages = await Messages.getByIdOfUser({id})
@@ -93,23 +110,43 @@ export const deleteUser = async(req,res)=>{
     }
 }
 export const getAllUsers = async(req,res)=>{
-    const { id } = req.body
+    const { id } = req
     console.log(id)
     try {
         const result = await User.getAll()
         const users = result[0].filter(item=> item.id !== id)
+        console.log(users)
         return res.status(200).json(users)
     } catch (error) {
         res.status(400).json({message: 'server error'})
     }
 }
 export const getUserbyId = async(req,res)=>{
-    const {id} = req.body
+    const {id} = req
 
     try {
-        const result = await User.deletebyId({id})
+        const result = await User.getById({id})
         return res.status(200).json(result[0][0])
     } catch (error) {
         res.status(400).json({message: 'User not found'})
+    }
+}
+
+export const imageUser = async(req,res) => {
+    const { id } = req
+    try {
+        const result = await User.getById({id})
+        const imageName = result[0][0].img
+        const filePath = path.join(process.cwd(), '/src/uploads/users', imageName)
+        await fs.access(filePath, fs.constants.F_OK)
+
+        const imageUrl = `http://localhost:4000/uploads/users/${imageName}`
+        res.json({ imageUrl })
+
+    } catch (error) {
+        console.error(error);
+        if (!res.headersSent) {
+            res.status(400).json({message: 'User not found'})
+        }
     }
 }
