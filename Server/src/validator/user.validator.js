@@ -29,7 +29,7 @@ const userShema = z.object({
         size: z.number(),
         type: z.string(),
     }).refine(file => file.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
-    .refine(file => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type), "Only .jpg, .jpeg, .png and .webp formats are supported."),
+    .refine(file => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type), "Only .jpg, .jpeg, .png and .webp formats are supported.").optional(),
 
     password: z.string({
         required_error: 'password is required'
