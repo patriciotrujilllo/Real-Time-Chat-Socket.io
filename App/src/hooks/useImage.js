@@ -22,7 +22,7 @@ const useImage = () => {
 	}
 
 	const AlluserImage = async() => {
-		const img = axios.get('/user/contactsImage')
+		const img = axios.get('/user/contactsImages')
 
 		return img
 	}
