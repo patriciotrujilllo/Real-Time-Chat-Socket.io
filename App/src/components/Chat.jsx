@@ -1,9 +1,11 @@
-import styled from "styled-components";
-import { useEffect,useState } from "react"
-import useAxiosRefresh from "../hooks/useAxiosRefresh"
-import Contacts from "./Contacts";
-import { useAuth } from "../hooks/useAuth";
+import styled from "styled-components"
+import Contacts from "./Contacts"
+import Welcome from "./Welcome"
+import ChatContainer from "./ChatContainer"
+import { useAuth } from "../hooks/useAuth"
 import { jwtDecode } from 'jwt-decode'
+import useImage from "../hooks/useImage"
+import { useState } from "react"
 // import { useNavigate,useLocation } from "react-router-dom"
 // import useLogout from "../hooks/useLogout"
 
@@ -21,37 +23,33 @@ import { jwtDecode } from 'jwt-decode'
 // }
 
 const Chat = () => {
-
 	// const logout = useLogout()
 	// const navigate = useNavigate()
 	// const location = useLocation()
-	const axios = useAxiosRefresh()
 	const { auth } = useAuth()
-	const [contacts,setContacts] = useState({})
-	const decoded = auth?.accessToken ?
+	const { contacts } = useImage()
+	const [currentChat,setCurrentChat] = useState(undefined)
+
+	const currentUser = auth?.accessToken ?
 		jwtDecode(auth?.accessToken)
 		: undefined
-	const email = decoded?.email
 
-	useEffect(()=> {
-
-		(async() => {
-			try{
-				const result = await axios.get('/user')
-				setContacts(result?.data)
-				console.log(result?.data)
-			}catch(err) {
-				console.error(err)
-				// navigate('/login', { state: { from: location}, replace: true})
-			}
-		})()
-
-	},[])
-
+	const handleChatChange = (chat) =>{
+		setCurrentChat(chat)
+	}
+	
 	return (
 		<Container>
 			<div className="container">
-				<Contacts contacts={contacts} user={email}/>
+				{
+					currentUser 
+                    && contacts 
+                    && <Contacts contacts={contacts.data} currentUser={currentUser} changeChat={handleChatChange}/>
+				}
+				{
+					currentChat ? <ChatContainer currentChat={currentChat}/>
+						: <Welcome userName={currentUser.firstName}/>
+				}
 			</div>
 		</Container>
 	)
