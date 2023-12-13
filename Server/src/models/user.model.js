@@ -7,7 +7,7 @@ export class UserModel {
         
         }
         async getAll () {
-                return await pool.query('SELECT * FROM users')
+                return await pool.query('SELECT id,firstName,lastName,email,img FROM users')
         }
         async getByEmail ({email}) {
                 const result = await pool.query('SELECT * FROM users WHERE email=?',[email])
