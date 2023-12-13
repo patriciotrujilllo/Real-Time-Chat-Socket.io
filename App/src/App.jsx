@@ -9,7 +9,7 @@ import { RequireAuth } from './components/RequireAuth'
 import styled from 'styled-components'
 import { Unauthorized } from './components/Unauthorized'
 import PersistLogin from './components/PersistLogin'
-// import Chat from './components/Chat'
+import Chat from './components/Chat'
 
 function App () {
 
@@ -37,7 +37,7 @@ function App () {
 							{/* Rutas donde pueden ingresar usuarios y admimintradores */}
 							<Route element={<RequireAuth allowedRoles={[1,2]} />}>
 								<Route path="/messages" element={<Messages/>}/>
-								{/* <Route path="/chat" element={<Chat/>}/> */}
+								<Route path="/chat" element={<Chat/>}/>
 							</Route>
 
 							{/* Rutas donde pueden ingresar admimintradores */}
