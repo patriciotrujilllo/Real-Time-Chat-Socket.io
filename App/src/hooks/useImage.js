@@ -2,36 +2,28 @@ import { useEffect, useState } from "react"
 import useAxiosRefresh from "./useAxiosRefresh"
 
 const useImage = () => {
-	const [urlImage, setUrlImage] = useState('')
-	const [contactsUrlImages, setcontactsUrlImages] = useState('')
+	const [contacts, setcontacts] = useState('')
 	const axios = useAxiosRefresh()
 
 	useEffect(()=> {
 		(async()=>{
-			const url = userImage()
-			const contactsUrl = AlluserImage()
-			setUrlImage(url)
-			setcontactsUrlImages(contactsUrl)
+			
+			const contactsUrl = await Alluser()
+			setcontacts(contactsUrl)
+
 		})()
 	},[])
 
-	const userImage = async() => {
-		const img = axios.get('/user/image')
 
-		return img
-	}
-
-	const AlluserImage = async() => {
-		const img = axios.get('/user/contactsImages')
+	const Alluser = async() => {
+		const img = await axios.get('/user/all')
 
 		return img
 	}
 
 	return {
-		userImage,
-		AlluserImage,
-		urlImage,
-		contactsUrlImages
+		Alluser,
+		contacts
 	}
 }
 
