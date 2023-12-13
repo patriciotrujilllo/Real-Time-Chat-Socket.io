@@ -1,48 +1,47 @@
 import { useEffect, useState } from "react"
 import styled from 'styled-components'
+// import useImage from "../hooks/useImage"
 
 
-export default function Contacts({ contacts, changeChat }) {
-	const [currentUserName, setCurrentUserName] = useState(undefined);
-	const [currentUserImage, setCurrentUserImage] = useState(undefined);
-	const [currentSelected, setCurrentSelected] = useState(undefined);
+
+export default function Contacts({ contacts, currentUser, changeChat  }) {
+	const [currentUserName, setCurrentUserName] = useState(undefined)
+	const [currentUserImage, setCurrentUserImage] = useState(undefined)
+	const [currentSelected, setCurrentSelected] = useState(undefined)
+
 	useEffect( () => {
-		const data = await JSON.parse(
-			localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-		);
-		setCurrentUserName(data.username);
-		setCurrentUserImage(data.avatarImage);
-	}, []);
+		
+		if(currentUser){
+			setCurrentUserName(currentUser.email)
+			setCurrentUserImage(currentUser.url)
+		}
+	
+	}, [currentUser])
+
 	const changeCurrentChat = (index, contact) => {
-		setCurrentSelected(index);
-		changeChat(contact);
-	};
+		setCurrentSelected(index)
+		changeChat(contact)
+	}
+
 	return (
 		<>
-			{currentUserImage && currentUserImage && (
+			{currentUserImage && currentUserName && (
 				<Container>
-					<div className="brand">
-						<img src={Logo} alt="logo" />
-						<h3>snappy</h3>
-					</div>
 					<div className="contacts">
 						{contacts.map((contact, index) => {
 							return (
-								<div
-									key={contact._id}
-									className={`contact ${
-										index === currentSelected ? "selected" : ""
-									}`}
+								<div key={contact.id} 
+									className={`contact ${ index === currentSelected ? "selected" : ""}`}
 									onClick={() => changeCurrentChat(index, contact)}
 								>
 									<div className="avatar">
 										<img
-											src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+											src={`${contact.img}`}
 											alt=""
 										/>
 									</div>
 									<div className="username">
-										<h3>{contact.username}</h3>
+										<h3>{contact.firstName}</h3>
 									</div>
 								</div>
 							);
@@ -51,8 +50,8 @@ export default function Contacts({ contacts, changeChat }) {
 					<div className="current-user">
 						<div className="avatar">
 							<img
-								src={`data:image/svg+xml;base64,${currentUserImage}`}
-								alt="avatar"
+								src={`${currentUserImage}`}
+								alt=""
 							/>
 						</div>
 						<div className="username">
@@ -66,7 +65,7 @@ export default function Contacts({ contacts, changeChat }) {
 }
 const Container = styled.div`
     display: grid;
-    grid-template-rows: 10% 75% 15%;
+    grid-template-rows: 80% 20%;
     overflow: hidden;
     background-color: #080420;
     .brand {
@@ -88,6 +87,7 @@ const Container = styled.div`
         align-items: center;
         overflow: auto;
         gap: 0.8rem;
+        padding-top: 1rem;
         &::-webkit-scrollbar {
             width: 0.2rem;
             &-thumb {
@@ -110,6 +110,8 @@ const Container = styled.div`
             .avatar {
             img {
                 height: 3rem;
+                width: 3rem;
+                border-radius: 0.4rem;
             }
             }
             .username {
