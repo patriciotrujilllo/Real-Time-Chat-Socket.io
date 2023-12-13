@@ -13,7 +13,7 @@ export const Login = () => {
 
 	const navigate = useNavigate()
 	const location = useLocation()
-	const from = location.state?.from?.pathname || "/messages"
+	const from = location.state?.from?.pathname || "/chat"
 	const {updateAuthLogin} = useAuth()
     
 	const handleForm = async(e) => {
