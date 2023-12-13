@@ -1,6 +1,8 @@
 import { createAccessToken, createRefreshToken, decodeTokenRefresh } from '../utils/jwt.js';
 import { compareHashPassword } from '../utils/auth.js';
 import { UserModel } from "../models/user.model.js";
+import path from 'path'
+import fs from 'fs/promises'
 
 const User = new UserModel
 
@@ -16,12 +18,23 @@ export const login = async(req,res) =>{
 
         const bool = await compareHashPassword({password,hashed_password:result[0][0].password})
         if(!bool) return res.status(401).json({message: 'Unauthorized'})
+
+        //obtener url de la imagen
+
+        const imageName = result[0][0].img
+        const filePath = path.join(process.cwd(), '/src/uploads/users', imageName)
+        await fs.access(filePath, fs.constants.F_OK)
+
+        const imageUrl = `http://localhost:4000/uploads/users/${imageName}`
+
+        //
         
         const userReturn = {
             firstName:result[0][0].firstName ,
             id: result[0][0].id,
             email: result[0][0].email,
-            roleId: result[0][0].roleId
+            roleId: result[0][0].roleId,
+            url: imageUrl
         }
 
         res.cookie('refreshToken', createRefreshToken(userReturn), {
@@ -64,12 +77,22 @@ export const refresh = async(req,res) => {
         return res.status(401).json({message: 'Unauthorized'})
     }
     
+    //obtener url de la imagen
+
+    const imageName = result[0][0].img
+    const filePath = path.join(process.cwd(), '/src/uploads/users', imageName)
+    await fs.access(filePath, fs.constants.F_OK)
+
+    const imageUrl = `http://localhost:4000/uploads/users/${imageName}`
+
+    //
 
     const userReturn = {
         firstName:result[0][0].firstName ,
         id: result[0][0].id,
         email: result[0][0].email,
-        roleId: result[0][0].roleId
+        roleId: result[0][0].roleId,
+        url: imageUrl
     }
 
     res.json({accessToken:createAccessToken(userReturn), roleId: result[0][0].roleId, email: result[0][0].email })
