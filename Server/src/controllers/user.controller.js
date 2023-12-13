@@ -111,11 +111,20 @@ export const deleteUser = async(req,res)=>{
 }
 export const getAllUsers = async(req,res)=>{
     const { id } = req
-    console.log(id)
     try {
         const result = await User.getAll()
         const users = result[0].filter(item=> item.id !== id)
-        console.log(users)
+        
+        for(const user of users) {
+            
+            const imageName = user.img
+            const filePath = path.join(process.cwd(), '/src/uploads/users', imageName)
+            await fs.access(filePath, fs.constants.F_OK)
+            const imageUrl = `http://localhost:4000/uploads/users/${imageName}`
+            user.img = imageUrl
+
+        }
+
         return res.status(200).json(users)
     } catch (error) {
         res.status(400).json({message: 'server error'})
@@ -132,21 +141,21 @@ export const getUserbyId = async(req,res)=>{
     }
 }
 
-export const imageUser = async(req,res) => {
-    const { id } = req
-    try {
-        const result = await User.getById({id})
-        const imageName = result[0][0].img
-        const filePath = path.join(process.cwd(), '/src/uploads/users', imageName)
-        await fs.access(filePath, fs.constants.F_OK)
+// export const imageUser = async(req,res) => {
+//     const { id } = req
+//     try {
+//         const result = await User.getById({id})
+//         const imageName = result[0][0].img
+//         const filePath = path.join(process.cwd(), '/src/uploads/users', imageName)
+//         await fs.access(filePath, fs.constants.F_OK)
 
-        const imageUrl = `http://localhost:4000/uploads/users/${imageName}`
-        res.json({ imageUrl })
+//         const imageUrl = `http://localhost:4000/uploads/users/${imageName}`
+//         res.json({ imageUrl })
 
-    } catch (error) {
-        console.error(error);
-        if (!res.headersSent) {
-            res.status(400).json({message: 'User not found'})
-        }
-    }
-}
+//     } catch (error) {
+//         console.error(error);
+//         if (!res.headersSent) {
+//             res.status(400).json({message: 'User not found'})
+//         }
+//     }
+// }
