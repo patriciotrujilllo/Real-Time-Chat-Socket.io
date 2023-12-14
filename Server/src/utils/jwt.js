@@ -2,7 +2,7 @@ import jsonwebtoken from 'jsonwebtoken'
 
 export const createAccessToken = (userToken) => {
     const expiration = new Date()
-    expiration.setMinutes(expiration.getMinutes() + 30)
+    expiration.setHours(expiration.getHours() + 2)
     return jsonwebtoken.sign(_tokenPayload({userToken,expiration}),process.env.ACCESS_TOKEN_SECRET)
 }
 
