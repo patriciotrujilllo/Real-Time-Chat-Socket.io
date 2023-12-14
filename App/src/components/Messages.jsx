@@ -1,39 +1,59 @@
-import { useEffect } from "react"
-import useAxiosRefresh from "../hooks/useAxiosRefresh"
-import { useNavigate,useLocation } from "react-router-dom"
-import useLogout from "../hooks/useLogout"
+import styled from "styled-components"
 
-export const Messages = () => {
-	const logout = useLogout()
-	const axios = useAxiosRefresh()
-	const navigate = useNavigate()
-	const location = useLocation()
-	// const [messages,setMessages] = useState([])
-
-	useEffect(()=> {
-
-		(async() => {
-			try{
-				const result = await axios.get('/message')
-				console.log(result?.data)
-			}catch(err) {
-				console.error(err)
-				navigate('/login', { state: { from: location}, replace: true})
-			}
-            
-			// setMessages(result?.data)
-		})()
-
-	},[])
-
+const Messages = ({messages,currentUser}) => {
+	console.log(currentUser.id)
 	return (
-		<>
-			<h1>Ha iniciado sesion y esta es la pagina de los mensajes</h1>
-			<h2>Mensajes</h2>
-			{/* {
-            messages ? messages.map(message=> <h3 key={message.id}>{message.content}</h3>) : <h3>No hay mensajes</h3>
-        } */}
-			<button onClick={logout}>Logout</button>
-		</>
+		<Container>
+			{
+				messages ? messages.map(message=> {
+					console.log(message.idEmitor)
+					return (
+						<div key={message.id} className={`message ${currentUser.id===message.idEmitor ? 'emisor':'receptor'}`}>
+							<div className="content">
+								<p>{message.content}</p>
+							</div>
+							
+						</div>
+						
+					)
+				}): <h1>No hay mensajes</h1>
+			} 
+		</Container>
 	)
 }
+
+const Container = styled.div`
+display: flex;
+flex-direction: column;
+gap: 1rem;
+padding: 1rem 2rem;
+overflow: auto;
+height: 64vh;
+.message {
+	display:flex;
+	align-items:center;
+	max-height: 20%;
+	.content {
+		max-width:50%;
+		/* overflow-wrap: break-word; */
+		padding: 1rem;
+		font-size: 1rem;
+		border-radius: 1rem;
+		color: #e4e0e0;
+	}
+}
+.emisor {
+	justify-content: flex-end;
+	.content {
+		background-color:#4f04ff21
+	}
+}
+.receptor {
+	justify-content: flex-start;
+	.content{
+		background-color:#9900ff20
+	}
+}
+`
+
+export default Messages
