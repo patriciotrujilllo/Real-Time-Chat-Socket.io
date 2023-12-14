@@ -2,9 +2,9 @@ import { pool } from './DBConnection.js'
 
 export class MessageModel {
 
-    async add ({id,content,idUser}){
+    async add ({id,idEmitor,idReceptor,content,date}){
     
-        const result = await pool.query('INSERT INTO messages(id,content,idUser) VALUES(?,?,?)',[id,content,idUser])
+        const result = await pool.query('INSERT INTO messages(id,date,idEmitor,idReceptor,content) VALUES(?,?,?,?,?)',[id,date,idEmitor,idReceptor,content])
     
         return result
     }
@@ -14,6 +14,10 @@ export class MessageModel {
     }
     async getById ({id}) {
         const result = await pool.query('SELECT * FROM messages WHERE id=?',[id])
+        return result
+    }
+    async getByIdEmisorReceptor ({id,idReceptor}) {
+        const result = await pool.query('SELECT * FROM messages WHERE (idEmitor=? AND idReceptor=?) OR (idReceptor=? AND idEmitor=?) ORDER BY date',[id,idReceptor,id,idReceptor])
         return result
     } 
     async getByIdOfUser ({id}) {
