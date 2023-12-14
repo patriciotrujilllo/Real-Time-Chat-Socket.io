@@ -4,21 +4,22 @@ import { MessageModel } from "../models/message.model.js";
 
 const Message = new MessageModel
 
-const _getMessages = async(req,res) =>{
-    try {
+// const _getMessages = async(req,res) =>{
+//     try {
 
-        const result = await Message.getAll()
-        if(!(result.length)) return res.status(400).json({message: 'No notes found'})
-        const { io } = req
-        io.emit('messages',result[0])
-        res.status(200).json(result[0])
+//         const result = await Message.getAll()
+//         if(!(result.length)) return res.status(400).json({message: 'No notes found'})
+//         const { io } = req
+//         io.emit('messages',result[0])
+//         res.status(200).json(result[0])
 
-    } catch (error) {
-        return res.status(400).json({message:'error at get messages',error})
-    }
-}
+//     } catch (error) {
+//         return res.status(400).json({message:'error at get messages',error})
+//     }
+// }
 
 export const addUserMessage = async(req,res)=>{
+    const { id } = req
     
     const validate = validateMessage({...req.body})
     
@@ -26,19 +27,28 @@ export const addUserMessage = async(req,res)=>{
         return res.status(400).json({ error: JSON.parse(validate.error.message)})
     }
 
-    const id = crypto.randomUUID()
-    const {content,idUser} = validate.data
+    const idMessage = crypto.randomUUID()
+    const {content,idReceptor} = validate.data
+    const date = new Date()
+        const messageToAdd = {
+            id: idMessage, 
+            idEmitor: id ,
+            idReceptor,
+            content,
+            date
+        }
 
     try {
-
-        await Message.add({id,content,idUser})
         
-        const { io } = req
-        io.emit('message',{
-            message: content,
-            idUser: idUser
-        })
-        res.status(200).json({message:'message added'})
+        const result = await Message.add({...messageToAdd})
+        console.log(result)
+        
+        // const { io } = req
+        // io.emit('message',{
+        //     message: content,
+        //     idUser: idUser
+        // })
+        res.status(200).json({...messageToAdd})
 
 
     } catch (error) {
@@ -67,20 +77,26 @@ export const updateMessages = async(req,res)=>{
 }
 export const getMessages = async(req,res)=>{
 
-    
-    _getMessages(req,res)
-}
-export const getMessagesWithUser = async(req,res)=>{
-yuh
-    
-    _getMessages(req,res)
+    try {
+
+        const result = await Message.getAll()
+        if(!(result.length)) return res.status(400).json({message: 'No notes found'})
+        const { io } = req
+        io.emit('messages',result[0])
+        res.status(200).json(result[0])
+
+    } catch (error) {
+        return res.status(400).json({message:'error at get messages',error})
+    }
+
 }
 export const getMessagesById = async(req,res)=>{
 
-    const {id} = req.params
+    const {id} = req
+    const { idReceptor } = req.body
 
     try {
-        const result = await Message.getById({id})
+        const result = await Message.getByIdEmisorReceptor({id,idReceptor})
         res.status(200).json(result[0])
     } catch (error) {
         res.status(400).json(error)
