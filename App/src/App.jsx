@@ -3,7 +3,6 @@ import { useEffect,Suspense } from 'react'
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import { io } from 'socket.io-client'
 import { Login } from './components/Login'
-import { Messages } from './components/Messages'
 import { Register } from './components/Register'
 import { RequireAuth } from './components/RequireAuth'
 import styled from 'styled-components'
@@ -36,7 +35,6 @@ function App () {
 							{/* Rutas protegidas, en vez de acerlo una a una, se envuelve todo a la vez*/}
 							{/* Rutas donde pueden ingresar usuarios y admimintradores */}
 							<Route element={<RequireAuth allowedRoles={[1,2]} />}>
-								<Route path="/messages" element={<Messages/>}/>
 								<Route path="/chat" element={<Chat/>}/>
 							</Route>
 
