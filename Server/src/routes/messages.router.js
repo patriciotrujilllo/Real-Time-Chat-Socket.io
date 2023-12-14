@@ -8,7 +8,7 @@ export const messagesRouter = Router()
 messagesRouter.use(userAuthenticated)
 
 messagesRouter.post('/',addUserMessage)
-messagesRouter.get('/:id',getMessagesById)
+messagesRouter.post('/user',getMessagesById)
 messagesRouter.get('/',getMessages)
 messagesRouter.delete('/',deleteMessage)
 messagesRouter.put('/',updateMessages)
