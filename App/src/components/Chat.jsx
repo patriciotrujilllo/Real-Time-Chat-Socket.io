@@ -7,23 +7,8 @@ import { jwtDecode } from 'jwt-decode'
 import useImage from "../hooks/useImage"
 import { useState } from "react"
 // import { useNavigate,useLocation } from "react-router-dom"
-// import useLogout from "../hooks/useLogout"
-
-
-//     return (
-//         <>
-//         <h1>Ha iniciado sesion y esta es la pagina de los mensajes</h1>
-//         <h2>Mensajes</h2>
-//         {/* {
-//             messages ? messages.map(message=> <h3 key={message.id}>{message.content}</h3>) : <h3>No hay mensajes</h3>
-//         } */}
-//         <button onClick={logout}>Logout</button>
-//         </>
-//     )
-// }
 
 const Chat = () => {
-	// const logout = useLogout()
 	// const navigate = useNavigate()
 	// const location = useLocation()
 	const { auth } = useAuth()
@@ -47,7 +32,7 @@ const Chat = () => {
                     && <Contacts contacts={contacts.data} currentUser={currentUser} changeChat={handleChatChange}/>
 				}
 				{
-					currentChat ? <ChatContainer currentChat={currentChat}/>
+					currentChat ? <ChatContainer currentChat={currentChat} currentUser={currentUser}/>
 						: <Welcome userName={currentUser.firstName}/>
 				}
 			</div>
