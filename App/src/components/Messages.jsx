@@ -1,14 +1,18 @@
+import { useEffect, useRef } from "react"
 import styled from "styled-components"
 
 const Messages = ({messages,currentUser}) => {
-	console.log(currentUser.id)
+	const scroll = useRef()
+
+	useEffect(()=> {
+		scroll.current?.scrollIntoView({ behaviour : " smooth"})
+	},[messages])
 	return (
 		<Container>
 			{
 				messages ? messages.map(message=> {
-					console.log(message.idEmitor)
 					return (
-						<div key={message.id} className={`message ${currentUser.id===message.idEmitor ? 'emisor':'receptor'}`}>
+						<div ref={scroll} key={message.id} className={`message ${currentUser.id===message.idEmitor ? 'emisor':'receptor'}`}>
 							<div className="content">
 								<p>{message.content}</p>
 							</div>
