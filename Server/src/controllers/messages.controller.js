@@ -4,20 +4,6 @@ import { MessageModel } from "../models/message.model.js";
 
 const Message = new MessageModel
 
-// const _getMessages = async(req,res) =>{
-//     try {
-
-//         const result = await Message.getAll()
-//         if(!(result.length)) return res.status(400).json({message: 'No notes found'})
-//         const { io } = req
-//         io.emit('messages',result[0])
-//         res.status(200).json(result[0])
-
-//     } catch (error) {
-//         return res.status(400).json({message:'error at get messages',error})
-//     }
-// }
-
 export const addUserMessage = async(req,res)=>{
     const { id } = req
     
@@ -40,16 +26,11 @@ export const addUserMessage = async(req,res)=>{
 
     try {
         
-        const result = await Message.add({...messageToAdd})
-        console.log(result)
+        await Message.add({...messageToAdd})
+        const { emitToSocket } = req
         
-        // const { io } = req
-        // io.emit('message',{
-        //     message: content,
-        //     idUser: idUser
-        // })
+        emitToSocket('msg-receive', messageToAdd)
         res.status(200).json({...messageToAdd})
-
 
     } catch (error) {
         return res.status(400).json({message:'error at insert',error})
