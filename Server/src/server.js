@@ -11,7 +11,7 @@ import cookieParser from 'cookie-parser'
 import { authRouter } from './routes/auth.router.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import path from 'path'
-import { userAuthenticated } from './middleware/authorization.js'
+import { decodeToken } from './utils/jwt.js'
 
 
 config()
@@ -28,22 +28,49 @@ const io = new Server(server,{
     cors: corsConfiguration()
 })
 
-app.use((req,res,next) => {
-    req.io = io
-    next()
+
+let onlineUsers = new Map()
+
+// Autenticación de middleware
+io.use((socket, next) => {
+    if (socket.handshake.query && socket.handshake.query.accessToken){
+        const decode = decodeToken(socket.handshake.query.accessToken)
+        if(!decode) return next(new Error('Authentication error'))
+        socket.decoded = decode
+        next()
+
+    }
+    else {
+        next(new Error('Authentication error'));
+    }    
+    })
+    .on('connection', (socket) => {
+        console.log('user connected')
+        // Añadir usuario a la lista de usuarios en línea
+        onlineUsers.set(socket.decoded.id, socket.id)
+        console.log(onlineUsers)
+
+        socket.on('disconnect', () => {
+            console.log('user disconnected')
+            // Eliminar usuario de la lista de usuarios en línea
+            onlineUsers.delete(socket.decoded.id)
+            console.log(onlineUsers)
+        })
 })
 
-io.on('connection',(socket)=>{
-    console.log('user connected')
+app.use('/message',(req,res,next) => {
+    req.emitToSocket = (eventName, eventData) => {
+        const socketId = onlineUsers.get(req.body.idReceptor)
+        if (socketId) {
+            io.to(socketId).emit(eventName, eventData)
+        }
+    }
 
-    socket.on('disconnect', () =>{
-        console.log('user disconnected')
-    })
-}) 
+    next()
+},messagesRouter)
 
 app.use('/auth',authRouter)
 app.use('/user',userRouter)
-app.use('/message',messagesRouter)
 
 app.use('*',errorHandler)
 
