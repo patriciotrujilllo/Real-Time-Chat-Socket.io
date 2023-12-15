@@ -6,10 +6,11 @@ import { useEffect, useState } from "react"
 import useAxiosRefresh from "../hooks/useAxiosRefresh"
 
 
-const ChatContainer = ({currentChat,currentUser}) => {
+const ChatContainer = ({currentChat,currentUser,socket}) => {
 
 	const [messages,setMessages] = useState([])
 	const axios = useAxiosRefresh()
+	
 
 
 	useEffect(()=> {
@@ -21,6 +22,18 @@ const ChatContainer = ({currentChat,currentUser}) => {
 
 	},[currentChat])
 
+	useEffect(()=> {
+		const listener = (msg) => {
+			setMessages(prevState => [...prevState,msg])
+		};
+		socket.on('msg-receive', listener)
+	
+		return () => {
+			socket.off('msg-receive', listener)
+		}
+	}, [socket])
+
+
 	const sendMessage = async(msg) => {
 		try {
 			const messagetoSend = {
@@ -31,6 +44,7 @@ const ChatContainer = ({currentChat,currentUser}) => {
 			const result = await axios.post('/message',messagetoSend)
 			
 			setMessages(prevState => [...prevState,result.data])
+
 		} catch (err) {
 			console.error(err)
 		}
