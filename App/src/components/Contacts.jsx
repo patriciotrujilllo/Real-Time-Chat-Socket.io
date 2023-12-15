@@ -12,7 +12,7 @@ export default function Contacts({ contacts, currentUser, changeChat  }) {
 	useEffect( () => {
 		
 		if(currentUser){
-			setCurrentUserName(currentUser.email)
+			setCurrentUserName(currentUser.firstName)
 			setCurrentUserImage(currentUser.url)
 		}
 	
@@ -128,9 +128,10 @@ const Container = styled.div`
         .current-user {
         background-color: #0d0d30;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         gap: 2rem;
+        padding-left: 1rem;
         .avatar {
             img {
             height: 4rem;
