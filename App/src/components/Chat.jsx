@@ -5,12 +5,11 @@ import ChatContainer from "./ChatContainer"
 import { useAuth } from "../hooks/useAuth"
 import { jwtDecode } from 'jwt-decode'
 import useImage from "../hooks/useImage"
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import { io } from 'socket.io-client'
 // import { useNavigate,useLocation } from "react-router-dom"
 
 const Chat = () => {
-	// const navigate = useNavigate()
-	// const location = useLocation()
 	const { auth } = useAuth()
 	const { contacts } = useImage()
 	const [currentChat,setCurrentChat] = useState(undefined)
@@ -22,6 +21,21 @@ const Chat = () => {
 	const handleChatChange = (chat) =>{
 		setCurrentChat(chat)
 	}
+
+	const socket = io('http://localhost:4000',{
+		query:{ ...auth }
+	})
+
+	useEffect(() => {
+		socket.on('connect', () => {
+			console.log('Conectado al servidor');
+		})
+
+		return () => {
+			socket.disconnect();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	
 	return (
 		<Container>
@@ -32,7 +46,7 @@ const Chat = () => {
                     && <Contacts contacts={contacts.data} currentUser={currentUser} changeChat={handleChatChange}/>
 				}
 				{
-					currentChat ? <ChatContainer currentChat={currentChat} currentUser={currentUser}/>
+					currentChat ? <ChatContainer currentChat={currentChat} currentUser={currentUser} socket={socket}/>
 						: <Welcome userName={currentUser.firstName}/>
 				}
 			</div>
