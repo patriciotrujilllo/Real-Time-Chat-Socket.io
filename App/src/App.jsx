@@ -1,7 +1,6 @@
 import './App.css'
-import { useEffect,Suspense } from 'react'
+import { Suspense } from 'react'
 import {BrowserRouter,Route,Routes} from 'react-router-dom'
-import { io } from 'socket.io-client'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 import { RequireAuth } from './components/RequireAuth'
@@ -12,14 +11,6 @@ import Chat from './components/Chat'
 
 function App () {
 
-	const socket = io('http://localhost:4000')
-
-	useEffect(() => {
-		socket.on('connect', () => {
-			console.log('Conectado al servidor');
-		})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	return (
 		<Container>
