@@ -12,13 +12,11 @@ const User = new UserModel
 const Messages = new MessageModel
 
 export const addUserController = async(req,res)=>{
-
+    
     const file = req.files && req.files.img && req.files.img.type ? req.files.img : false
     
     if(file) req.body.img = file
     req.body.roleId = req.body.roleId || '2'
-
-    
 
     const newvalidate = {...req.body}
     const validate = validateUser(newvalidate)
