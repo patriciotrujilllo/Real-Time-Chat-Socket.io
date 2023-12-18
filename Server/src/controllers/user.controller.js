@@ -24,13 +24,9 @@ export const addUserController = async(req,res)=>{
     if(validate.error) return res.status(400).json({ error: JSON.parse(validate.error.message)})
     
     const { password,email } = validate.data
-
     const duplicate = await User.getByEmail({email})
     if(duplicate[0].length) return res.status(409).json({message: 'Duplicate username'})
     
-    console.log(file)
-
-
     if(file){
         console.log('paso por dentro del if')
         const imgPath = ulrImage(file)
@@ -39,10 +35,7 @@ export const addUserController = async(req,res)=>{
     else {
         validate.data.img = 'DefaultImage.png'
     }
-    
     const id = crypto.randomUUID()
-    console.log(validate.data)
-
 
     try {
         const hashed_password = await hashPassword({password})
