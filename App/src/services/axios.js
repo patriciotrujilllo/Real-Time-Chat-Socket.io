@@ -13,6 +13,11 @@ export const instancePublic = axios.create({
 	headers: { 'Content-Type': 'application/json' }
 })
 
+export const instanceRegister = axios.create({
+	baseURL: PORT,
+	headers: {  'Content-Type': 'multipart/form-data' }
+})
+
 export const instanceRefresh = axios.create({
 	baseURL: PORT,
 	headers: { 'Content-Type': 'application/json' },
