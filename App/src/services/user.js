@@ -1,5 +1,5 @@
 // import axios from 'axios'
-import { instancePublic } from "./axios"
+import { instancePublic, instanceRegister } from "./axios"
 
 export const loginWithAxios = async({email,password}) =>{
 
@@ -18,7 +18,7 @@ export const loginWithAxios = async({email,password}) =>{
 }
 export const register = async(formData) =>{
         
-	const response = await instancePublic.post(`/user/register`,formData)
+	const response = await instanceRegister.post(`/user/register`,formData)
 	return response.data
     
     
