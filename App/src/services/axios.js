@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const PORT = 'http://localhost:4000'
+const PORT = import.meta.env.PORT
 
 export const instancePrivate = axios.create({
 	baseURL: PORT,
