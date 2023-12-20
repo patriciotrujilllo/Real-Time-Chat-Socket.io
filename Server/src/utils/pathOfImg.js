@@ -3,8 +3,6 @@ import fs from 'fs'
 export const ulrImage = (file) =>{
     const arrayPath = file.path.split('\\')
     const nameImg = arrayPath.pop()
-    const folderImg = arrayPath.pop()
-    // const pathToSave = `${folderImg}/${nameImg}`
     const pathToSave = `${nameImg}`
     return pathToSave
 }
