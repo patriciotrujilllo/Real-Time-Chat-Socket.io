@@ -5,7 +5,7 @@ export const FormContainer = styled.div`
     aspect-ratio: 1/1;
     display: grid;
     place-items: center;
-    background-color: #505083;
+    background-color: #99B2DD;
     border-radius: 2rem;
     form {
         width: 70%;
@@ -17,7 +17,7 @@ export const FormContainer = styled.div`
         border-radius: 5px;
         }
         button {
-            background-color: #b172d8;
+            background-color: #7796CB;
             padding: 1rem;
             border-radius: 4px;
             cursor: pointer;
