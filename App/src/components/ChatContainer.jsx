@@ -75,12 +75,13 @@ const ChatContainer = ({currentChat,currentUser,socket}) => {
 const Container = styled.div`
 	display: grid;
 	grid-template-rows: 1fr 8fr 1fr;
+	background-color: #3a405a95;
 	.chat-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 2rem;
-		background-color: #080420;
+		background-color: #99B2DD;
 		.user-details{
 			display:flex;
 			align-items: center;
