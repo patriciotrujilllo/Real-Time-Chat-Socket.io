@@ -28,6 +28,7 @@ const ChatInput = ({sendMessage}) => {
 				
 				{ showEmojiPiecker && <EmojiPicker onEmojiClick={handleEmoji}/>}
 				<input 
+					placeholder="send a message..."
 					ref={inputRef}
 					type="text" 
 					onChange={(e)=>setMsg(e.target.value)
@@ -55,7 +56,7 @@ form {
     grid-template-columns: 5% 85% 5%;
     width:100%;
     height: 100%;
-    background-color: #080420;
+    background-color: #99B2DD;
     .emoji {
         
         cursor: pointer;
@@ -66,7 +67,10 @@ form {
         font-size: 1.2rem;
         padding-left: 1rem;
         padding-right: 1rem;
+        background-color: #3a405a95;
+        color: white;
     }
+    ::placeholder { color: white}
     .EmojiPickerReact {
         width: 100px;
         height: 100px;
@@ -80,6 +84,7 @@ form {
     button {
         width:100%;
         height: 60%;
+        background-color: #a596eb;
         svg {
             width: 100%;
             height: 60%;
