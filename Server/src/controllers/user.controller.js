@@ -83,7 +83,7 @@ export const updateUserController = async(req,res)=>{
     }
 }
 export const deleteUser = async(req,res)=>{
-    const {id} = req
+    const {id} = req.body
     if(!id) return res.status(400).json({message: 'User id Required'})
 
     const messages = await Messages.getByIdOfUser({id})
@@ -91,10 +91,14 @@ export const deleteUser = async(req,res)=>{
     if (messages[0].length) return res.status(400).json({message:'User has assigned messages'})
 
     const user = await User.getById({id})
+    
     if(!(user[0].length)) return res.status(400).json({message:'User not found'})
+    const img = user[0][0].img
+console.log(img)
 
     try {
         await User.deletebyId({id})
+        if(img!=='DefaultImage.png') deletelinkFile({path:img})
         return res.status(200).json({message: 'User deleted'})
     } catch (error) {
         res.status(400).json({message: 'error delete user'})
