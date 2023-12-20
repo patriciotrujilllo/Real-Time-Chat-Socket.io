@@ -21,7 +21,7 @@ export class MessageModel {
         return result
     } 
     async getByIdOfUser ({id}) {
-        const result = await pool.query('SELECT * FROM messages WHERE idUser=?',[id])
+        const result = await pool.query('SELECT * FROM messages WHERE idEmitor=? or idReceptor=?',[id,id])
         return result
     } 
     async getAll () {
