@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const PORT = import.meta.env.PORT
+const PORT = import.meta.env.VITE_PORT
+console.log(PORT)
 
 export const instancePrivate = axios.create({
 	baseURL: PORT,
