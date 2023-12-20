@@ -4,10 +4,11 @@ import { Link,useNavigate } from "react-router-dom"
 import { FormContainer } from "../styled-conponents"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styled from "styled-components";
 
 export const Register = () => {
 
-	const [fisrtName,setFisrtname] = useState('')
+	const [firstName,setFirstname] = useState('')
 	const [lastName,setLastname] = useState('')
 	const [email,setEmail] = useState('')
 	const [password,setPassword] = useState('')
@@ -29,7 +30,7 @@ export const Register = () => {
 		}
 		else{
 			const formData = new FormData()
-			formData.append('firstName',fisrtName)
+			formData.append('firstName',firstName)
 			formData.append('lastName',lastName)
 			formData.append('email',email)
 			formData.append('password',password)
@@ -50,7 +51,7 @@ export const Register = () => {
 	}
 
 	return (
-		<>
+		<Container>
 			<FormContainer>
 				<form onSubmit={handleForm}>
 					<label htmlFor="firstname">Firstname </label>
@@ -58,8 +59,8 @@ export const Register = () => {
 						type="text" 
 						id="firstname"
 						autoComplete="off"
-						onChange={(e)=>setFisrtname(e.target.value)}
-						value={fisrtName}
+						onChange={(e)=>setFirstname(e.target.value)}
+						value={firstName}
 						required
 					/>
 
@@ -114,6 +115,17 @@ export const Register = () => {
 				{error && JSON.stringify(error)}
 			</FormContainer>
 			<ToastContainer />
-		</>
+		</Container>
 	)
 }
+
+const Container = styled.div`
+
+	background-color: #3A405A;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-items: center;
+
+
+`

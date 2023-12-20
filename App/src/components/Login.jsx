@@ -3,6 +3,7 @@ import { loginWithAxios } from "../services/user"
 import { FormContainer } from "../styled-conponents"
 import { Link,useNavigate,useLocation } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
+import styled from "styled-components"
 
 
 export const Login = () => {
@@ -31,7 +32,7 @@ export const Login = () => {
 	}
 
 	return (
-		<>
+		<Container>
 			<FormContainer>
 				<form onSubmit={handleForm}>
 					<label htmlFor="email">Email </label>
@@ -58,6 +59,16 @@ export const Login = () => {
 				</form>
 				{error && error}
 			</FormContainer>
-		</>
+		</Container>
 	)
 }
+const Container = styled.div`
+
+	background-color: #3A405A;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-items: center;
+
+
+`
