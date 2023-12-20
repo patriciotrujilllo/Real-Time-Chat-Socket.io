@@ -49,13 +49,13 @@ height: 64vh;
 .emisor {
 	justify-content: flex-end;
 	.content {
-		background-color:#4f04ff21
+		background-color:#6a85b3
 	}
 }
 .receptor {
 	justify-content: flex-start;
 	.content{
-		background-color:#9900ff20
+		background-color:#5D6A81
 	}
 }
 `

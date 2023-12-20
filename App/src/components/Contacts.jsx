@@ -87,6 +87,7 @@ const Container = styled.div`
         align-items: center;
         overflow: auto;
         gap: 0.8rem;
+        background-color: #99B2DD;
         padding-top: 1rem;
         &::-webkit-scrollbar {
             width: 0.2rem;
@@ -97,7 +98,7 @@ const Container = styled.div`
             }
         }
         .contact {
-            background-color: #ffffff34;
+            background-color: #ffffff49;
             min-height: 5rem;
             cursor: pointer;
             width: 90%;
@@ -121,12 +122,12 @@ const Container = styled.div`
             }
         }
         .selected {
-            background-color: #9a86f3;
+            background-color: #E3D3C2;
         }
     }
 
         .current-user {
-        background-color: #0d0d30;
+        background-color: #7796CB;
         display: flex;
         justify-content: flex-start;
         align-items: center;
