@@ -11,6 +11,10 @@ Chat en tiempo real. Los usuarios pueden crear una cuenta e iniciar sesión, y t
 
 ![Register](./ReadmePics/Register.png)
 
+### Welcome page: pagina principal de chat una vez iniciada sesión.
+
+![Register](./ReadmePics/Welcome.png)
+
 ## Tecnologías utilizadas
 
 Este proyecto fue creado con el stack MySQLSQL, Express, React y Node.js. Las dependencias de producción del backend incluyen bcrypt, dotenv, express, jsonwebtoken, pg y zod. En el frontend, el proyecto fue creado con `npm create vite@latest` y las dependencias de producción incluyen react-cookie.
