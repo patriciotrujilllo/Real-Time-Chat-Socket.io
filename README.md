@@ -2,12 +2,12 @@
 
 Chat en tiempo real. Los usuarios pueden crear una cuenta e iniciar sesión, y todas las peticiones se hacen con la autorización por cabecera de JSON Web Token (JWT), una vez se inicia sesion te redirige a la pagina principal donde se mostraran todos los usuarios que se allan creado una cuenta, podras iniciar un conversacion con cada uno de manera individual.
 
-##Vistas
+## Vistas
 
-###Login: pagina de inicio de sesión con email y contraseña creados, si no posees cuenta puedes seleccionar el link de crear cuenta que te redireccionara.
+### Login: pagina de inicio de sesión con email y contraseña creados, si no posees cuenta puedes seleccionar el link de crear cuenta que te redireccionara.
 ![Login](./ReadmePics/Login.png)
 
-###Register: pagina de registro donde ingresas tus datos para crear una cuenta, la imagen de usuario es opcional
+### Register: pagina de registro donde ingresas tus datos para crear una cuenta, la imagen de usuario es opcional
 
 ![Register](./ReadmePics/Register.png)
 
