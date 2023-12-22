@@ -78,13 +78,13 @@ socket.io-client: socket.io-client establece una conexión persistente y de baja
 jwt-decode: Para decodificar el token y poder acceder a los datos
 emoji-picker-react: Para poder ecoger un emoji y agregarlo al mensage que sera enviado.
 
-axios: Para realizar las peticiones asincronicas e intancias de axios esto para poder utilizar interceptors, esto se utilizo para interceptar la respuesta si existe un error especifico, en concreto el error de expiracion del token, si esto ocurre se enviara una peticion al backend en la cual se envia el refreshToken para obtener una nuevo accessToken
+axios: Para realizar las peticiones asincronicas e intancias de axios esto para poder utilizar interceptors, esto se utilizo para interceptar la respuesta si existe un error especifico, en concreto el error de expiracion del token, si esto ocurre se enviara una peticion al backend en la cual se envia el refreshToken para obtener una nuevo accessToken, ademas tambien todas las peticiones que son creadas con esta instancia se les agregara a la cabecera el token de la autorizacion.
 
 
 
 ## Requisitos previos
 
-Antes de instalar y utilizar este proyecto, asegúrate de tener instalado PostgreSQL en tu equipo. También deberás crear la base de datos y las tablas necesarias para el proyecto. Puedes encontrar el código SQL para crear la base de datos y las tablas en el archivo `DB.js` del directorio raíz del proyecto.
+Antes de instalar y utilizar este proyecto, asegúrate de tener instalado MySQL en tu equipo. También deberás crear la base de datos y las tablas necesarias para el proyecto. Puedes encontrar el código SQL para crear la base de datos y las tablas en el archivo `sql.sql` del directorio '/Server/src/sql.sql'. Ademas tener instalado los paquetes de Node.js, en este proyecto se utilizo la version 20.9.0
 
 ## Instalacíon
 
