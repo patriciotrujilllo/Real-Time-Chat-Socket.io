@@ -68,11 +68,16 @@ El código está formateado con una configuración de ESLint.
 En el frontend el proyecto está hecho con React utilizando vite, en cuanto al estilado se utilizo styled-component.
 
 react-router-dom: Para definir las rutas disponibles para el usuario cuales son publicas, cuales son privatas a traves de la variable auth guardada en el state, recivido al iniciar sesion y hay algunas rutas que solo estan disponibles para ciertos usuarios que tienen determinado role, si el usuario no esta autorizado lo redirige a una pagina con el mensage.
+
 react-toastify: Mensajes que apareceran si se cumplen ciertas condiciones, por ejemplo si al crear usuario las password y comfirmpassword no coinciden.
+
 styled-components: Para estilar los componentes y poder reutilizarlo.
+
 socket.io-client: socket.io-client establece una conexión persistente y de baja latencia utilizando la tecnología WebSocket para habilitar la transmisión instantánea de datos entre las partes involucradas.
+
 jwt-decode: Para decodificar el token y poder acceder a los datos
 emoji-picker-react: Para poder ecoger un emoji y agregarlo al mensage que sera enviado.
+
 axios: Para realizar las peticiones asincronicas e intancias de axios esto para poder utilizar interceptors, esto se utilizo para interceptar la respuesta si existe un error especifico, en concreto el error de expiracion del token, si esto ocurre se enviara una peticion al backend en la cual se envia el refreshToken para obtener una nuevo accessToken
 
 
