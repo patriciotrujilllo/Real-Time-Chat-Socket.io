@@ -1,6 +1,6 @@
 # Real-Time-Chat-Socket.io
 
-Chat en tiempo real. Los usuarios pueden crear una cuenta e iniciar sesión, y todas las peticiones se hacen con la autorización por cabecera de JSON Web Token (JWT), una vez se inicia sesion te redirige a la pagina principal donde se mostraran todos los usuarios que se allan creado una cuenta, podras iniciar un conversacion con cada uno de manera individual.
+Chat en tiempo real donde se utilizo el patron de diseño Modelo,Vista,Controlador(mvc). Los usuarios pueden crear una cuenta e iniciar sesión, y todas las peticiones se hacen con la autorización por cabecera de JSON Web Token (JWT), una vez se inicia sesion te redirige a la pagina principal donde se mostraran todos los usuarios que se allan creado una cuenta, podras iniciar un conversacion con cada uno de manera individual.
 
 ## Vistas
 
@@ -40,6 +40,9 @@ En el BackEnd las dependecias de desarrollo incluyen:
 - zod
 
 ## Backend
+
+El backEnd se realizo en node.js con express, se utilizo el patron de diseño MVC, donde el codigo se dividio en Routers, Controllers y clases para el Modelo. En lo referente a la seguridad en la autentificacion se implemento bcrypt para las contraseñas y para la autizacion se creo un middleware que requiere de un token para tener acceso.
+
 bcrypt: Al crear un usuario, la contraseña es encriptada con bcrypt y guardada en la base de datos esto para proteger los datos del usuario. Una vez inicias sesión se utiliza neuvamente la libreir apara decodificar la contraseña y atentificar al usuario. 
 
 Zod: En el backend, las variables enviadas pasan por un validador (Zod) que se encarga de que las variables coincidan con el valor esperado y de indicar qué valores son requeridos y cuáles opcionales. Al crear un usuario hay un validador de coincidencia entre las contraseñas enviadas ademas en cuanto a la imagen para el usuario es opcional y si es enviada posee codiciones para ser guardada, debe tner un rango de extensio valida y no ser superior a un determinado tamaño.
