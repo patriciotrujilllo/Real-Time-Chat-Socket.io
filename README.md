@@ -3,6 +3,7 @@
 Este es un proyecto CRUD (Crear, Leer, Actualizar, Eliminar) de notas, donde las notas están asociadas a un usuario único. Los usuarios pueden crear una cuenta e iniciar sesión, y todas las peticiones se hacen con la autorización por cabecera de JSON Web Token (JWT)
 
 ![Login](./ReadmePics/Login.png)
+![Register](./ReadmePics/Register.png)
 
 ## Tecnologías utilizadas
 
