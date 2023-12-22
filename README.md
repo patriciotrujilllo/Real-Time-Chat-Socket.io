@@ -90,24 +90,25 @@ Antes de instalar y utilizar este proyecto, asegúrate de tener instalado MySQL 
 
 Para instalar este proyecto en tu equipo local, sigue estos pasos:
 1. Clona este repositorio en tu equipo local.
-2. Navega hasta el directorio del proyecto y ejecuta `npm install` para instalar todas las dependencias, esto debe realizarse tanto en la carpeta de app y Api.
-3. Crea un archivo `.env` en el directorio de la Api y app del proyecto y agrega tus variables de entorno.
-    - Las variables de entorno de la Api son:
+2. Navega hasta el directorio del proyecto y ejecuta `npm install` para instalar todas las dependencias, esto debe realizarse tanto en la carpeta de App y Server.
+3. Crea un archivo `.env` en el directorio de la App y el Server del proyecto y agrega tus variables de entorno.
+    - Las variables de entorno del Server son:
         - PORTAPI
-        - user
-        - password
-        - host
-        - port
-        - database
-        - Secret
-    - La varible de entorno de la app es:
-        - REACT_APP_URL
-4. Crea una base de datos en POSGRES donde se tenga usuarios y notas(esta configuracion ya esta en el archivo DB.sql de la raiz del proyecto), donde una nota solo puede tener un usuario pero un usuario puede tener varias notas (relación n:1)
-5. Ejecuta `npm run api` para iniciar el servidor y luego se procede a iniciar la aplicacion con `npm run app`.
+        - USER
+        - PASSWORD
+        - HOST
+        - PORT
+        - DATABASE
+        - ACCESS_TOKEN_SECRET
+        - REFRESH_TOKEN_SECRET
+    - La varible de entorno de la App es:
+        - VITE_PORT
+4. Crea una base de datos en MySQL donde se tenga usuarios y mensajes(esta configuracion ya esta en el archivo sql.sql), donde un mensaje solo puede tener un emisor y un receptor pero un usuario puede tener varios mensajes (relación n:1)
+5. Ejecuta `npm run start` para iniciar el servidor(en la carpeta Server) y luego se procede a iniciar la aplicacion con `npm run build`.
     
 ## Uso 
 
 Para utilizar este proyecto, sigue estos pasos:
-1. Abre tu navegador web y navega hasta http://localhost:3000.
+1. Abre tu navegador web y navega hasta http://localhost:5173.
 2. Crea una cuenta o inicia sesión con una cuenta existente.
-3. Una vez que hayas iniciado sesión, podrás crear, leer, actualizar y eliminar notas.
+3. Una vez que hayas iniciado sesión, podrás enviar mensajes a otros usuarios.
