@@ -41,12 +41,17 @@ En el BackEnd las dependecias de desarrollo incluyen:
 - zod
 
 ## Backend
+bcrypt: Al crear un usuario, la contraseña es encriptada con bcrypt y guardada en la base de datos esto para proteger los datos del usuario. Una vez inicias sesión se utiliza neuvamente la libreir apara decodificar la contraseña y atentificar al usuario. 
 
-En el backend, las variables enviadas pasan por un validador (Zod) que se encarga de que las variables coincidan con el valor esperado y de indicar qué valores son requeridos y cuáles opcionales. Al crear un usuario, hay un validador de coincidencia entre las contraseñas enviadas.
+Zod: En el backend, las variables enviadas pasan por un validador (Zod) que se encarga de que las variables coincidan con el valor esperado y de indicar qué valores son requeridos y cuáles opcionales. Al crear un usuario hay un validador de coincidencia entre las contraseñas enviadas ademas en cuanto a la imagen para el usuario es opcional y si es enviada posee codiciones para ser guardada, debe tner un rango de extensio valida y no ser superior a un determinado tamaño.
 
-Los endpoints de los usuarios, tareas y login se refactorizaron en rutas (middleware). Cada una de estas rutas tiene que pasar por un middleware que maneja las cabeceras CORS y especifica el origen de las peticiones permitidas.
+Cors: Se agrego una configuracion de cors a todas las rutas, permitiendo las peticiones HTTP-request POST,DELETE,UPDATE,GET. En esta configuracion tambien se agrego los orogenes permitidos y se desactivo la opcion de preflight.
 
-Al crear un usuario, la contraseña es encriptada con bcrypt y guardada en la base de datos. También se creó un middleware intermedio que se encarga de autenticar el token. La conexión a la base de datos utiliza variables de entorno.
+Dotenv: Este proyecto utilizo variables de entorno para las constantes, esto s tarves de dotenv.
+
+
+
+tiene que pasar por un middleware que maneja las cabeceras CORS y especifica el origen de las peticiones permitidas.
 
 El código está formateado con una configuración de ESLint.
 
