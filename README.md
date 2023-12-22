@@ -17,7 +17,16 @@ Chat en tiempo real. Los usuarios pueden crear una cuenta e iniciar sesión, y t
 
 ## Tecnologías utilizadas
 
-Este proyecto fue creado con el stack MySQLSQL, Express, React y Node.js. Las dependencias de producción del backend incluyen bcrypt, dotenv, express, jsonwebtoken, pg y zod. En el frontend, el proyecto fue creado con `npm create vite@latest` y las dependencias de producción incluyen react-cookie.
+Este proyecto fue creado con el stack MySQL, Express, React y Node.js. Las dependencias de producción del backend incluyen bcrypt, dotenv, express, jsonwebtoken, pg y zod. En el frontend, el proyecto fue creado con `npm create vite@latest` y las dependencias de producción incluyen :
+
+- axios
+- emoji-picker-react
+- jwt-decode
+- react, react-dom
+- react-router-dom
+- react-toastify
+- socket.io-client
+- styled-components
 
 ## Backend
 
