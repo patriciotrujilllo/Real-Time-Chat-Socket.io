@@ -1,6 +1,6 @@
 # Real-Time-Chat-Socket.io
 
-Chat en timepo real. Los usuarios pueden crear una cuenta e iniciar sesión, y todas las peticiones se hacen con la autorización por cabecera de JSON Web Token (JWT)
+Chat en tiempo real. Los usuarios pueden crear una cuenta e iniciar sesión, y todas las peticiones se hacen con la autorización por cabecera de JSON Web Token (JWT), una vez se inicia sesion te redirige a la pagina principal donde se mostraran todos los usuarios que se allan creado una cuenta, podras iniciar un conversacion con cada uno de manera individual.
 
 ![Login](./ReadmePics/Login.png)
 ![Register](./ReadmePics/Register.png)
