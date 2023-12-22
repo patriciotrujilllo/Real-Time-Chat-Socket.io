@@ -5,7 +5,7 @@ Chat en tiempo real. Los usuarios pueden crear una cuenta e iniciar sesión, y t
 ## Vistas
 
 ### Login: pagina de inicio de sesión con email y contraseña creados, si no posees cuenta puedes seleccionar el link de crear cuenta que te redireccionara.
-<img src="./ReadmePics/Login.png" alt="Login" width="400"/>
+<img src="./ReadmePics/Login.png" alt="Login" width="50%"/>
 
 ### Register: pagina de registro donde ingresas tus datos para crear una cuenta, la imagen de usuario es opcional
 
