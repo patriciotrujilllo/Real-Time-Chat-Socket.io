@@ -3,10 +3,12 @@ import {config} from 'dotenv'
 
 config()
 
+const ENV = process.env
+
 export const pool = createPool({
-    host:'localhost',
-    user:'root',
-    database:'chat',
-    password:'Letales123@mysql',
-    port: 3306
+    host:ENV.HOST,
+    user:ENV.USER,
+    database:ENV.DATABASE,
+    password:ENV.PASSWORD,
+    port: ENV.PORT
 })
