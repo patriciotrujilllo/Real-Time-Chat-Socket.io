@@ -57,6 +57,8 @@ Mysql2: libreria para conectar con una base de datos mysql, se trabajo con esta 
 
 Jsonwebtoken: Se crearon dos archivos con jsonwebtoken, el primero es el accessToken el cual es devuelto en la respuesta de la peticion cuando se autentifica el usuario(inicio de sesión) y la otra es el refreshToken que es utilizada cuando expira el accessToken del usuario permitiendote obtener otro, este refreshToken es enviado y recicbido en las cookies, ademas se le agrego la opcion de Http-Only, para que solo puede ser accedido por cookies y no a traves de codigo.
 
+socket.io: Es una libreria de Web Socket, te permite enviar mesajes de manera inmediata hacia el front, esta configurado de tal manera que cada vez que un usuario envia un mensaje y es guardado correctamente en la base de datos socket io repliega el mensaje hacia el receptor sin que este este realizando la peticion de actualizar los mensajes.
+
 El código está formateado con una configuración de ESLint.
 
 ## Frontend 
