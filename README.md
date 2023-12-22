@@ -12,7 +12,7 @@ Chat en tiempo real donde se utilizo el patron de diseño Modelo,Vista,Controlad
 
 ### Welcome page: pagina principal de chat una vez iniciada sesión.
 
-![Register](./ReadmePics/Welcome.png)
+![Register](./ReadmePics/Chat2.png)
 
 ## Tecnologías utilizadas
 
