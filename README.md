@@ -65,9 +65,19 @@ El código está formateado con una configuración de ESLint.
 
 ## Frontend 
 
-En el frontend, el proyecto está hecho con React y se utilizó CSS puro. Se utilizaron iconos SVG para los elementos gráficos. Para las peticiones asíncronas se utilizó la herramienta nativa de JavaScript `fetch`, haciendo uso tanto de funciones `async/await` como también de promesas
+En el frontend el proyecto está hecho con React utilizando vite, en cuanto al estilado se utilizo styled-component.
 
-El token es guardado localmente en las cookies a través del hook `useCookies`.
+react-router-dom: Para definir las rutas disponibles para el usuario cuales son publicas, cuales son privatas a traves de la variable auth guardada en el state, recivido al iniciar sesion y hay algunas rutas que solo estan disponibles para ciertos usuarios que tienen determinado role, si el usuario no esta autorizado lo redirige a una pagina con el mensage.
+react-toastify: 
+styled-components:
+socket.io-client:
+jwt-decode:
+emoji-picker-react:
+axios:
+
+
+
+
 
 ## Requisitos previos
 
