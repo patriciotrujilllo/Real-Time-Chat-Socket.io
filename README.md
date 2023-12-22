@@ -8,8 +8,7 @@ Chat en tiempo real. Los usuarios pueden crear una cuenta e iniciar sesión, y t
 <img src="./ReadmePics/Login.png" alt="Login" width="70%"/>
 
 ### Register: pagina de registro donde ingresas tus datos para crear una cuenta, la imagen de usuario es opcional
-
-![Register](./ReadmePics/Register.png)
+<img src="./ReadmePics/Register.png" alt="Register" width="70%"/>
 
 ### Welcome page: pagina principal de chat una vez iniciada sesión.
 
