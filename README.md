@@ -49,9 +49,13 @@ Cors: Se agrego una configuracion de cors a todas las rutas, permitiendo las pet
 
 Dotenv: Este proyecto utilizo variables de entorno para las constantes, esto s tarves de dotenv.
 
+Connect-multiparty: Esta libreria es necesaria para poder recibir a la imagen enviadada desde el front, se agrega como middleware a la ruta de la peticion.
 
+Cookie-parser: Te permite trabajar con las cookies enviadas por peticion.
 
-tiene que pasar por un middleware que maneja las cabeceras CORS y especifica el origen de las peticiones permitidas.
+Mysql2: libreria para conectar con una base de datos mysql, se trabajo con esta libreria por que permite trabajar con promesas.
+
+Jsonwebtoken: Se crearon dos archivos con jsonwebtoken, el primero es el accessToken el cual es devuelto en la respuesta de la peticion cuando se autentifica el usuario(inicio de sesión) y la otra es el refreshToken que es utilizada cuando expira el accessToken del usuario permitiendote obtener otro, este refreshToken es enviado y recicbido en las cookies, ademas se le agrego la opcion de Http-Only, para que solo puede ser accedido por cookies y no a traves de codigo.
 
 El código está formateado con una configuración de ESLint.
 
