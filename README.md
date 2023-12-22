@@ -1,13 +1,13 @@
 # Real-Time-Chat-Socket.io
 
-Este es un proyecto CRUD (Crear, Leer, Actualizar, Eliminar) de notas, donde las notas están asociadas a un usuario único. Los usuarios pueden crear una cuenta e iniciar sesión, y todas las peticiones se hacen con la autorización por cabecera de JSON Web Token (JWT)
+Chat en timepo real. Los usuarios pueden crear una cuenta e iniciar sesión, y todas las peticiones se hacen con la autorización por cabecera de JSON Web Token (JWT)
 
 ![Login](./ReadmePics/Login.png)
 ![Register](./ReadmePics/Register.png)
 
 ## Tecnologías utilizadas
 
-Este proyecto fue creado con el stack PERN (PostgreSQL, Express, React y Node.js). Las dependencias de producción del backend incluyen bcrypt, dotenv, express, jsonwebtoken, pg y zod. En el frontend, el proyecto fue creado con `npx create-app-[nombre]` y las dependencias de producción incluyen react-cookie.
+Este proyecto fue creado con el stack MySQLSQL, Express, React y Node.js. Las dependencias de producción del backend incluyen bcrypt, dotenv, express, jsonwebtoken, pg y zod. En el frontend, el proyecto fue creado con `npm create vite@latest` y las dependencias de producción incluyen react-cookie.
 
 ## Backend
 
